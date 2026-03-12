@@ -52,20 +52,20 @@
         <aside class="w-full md:w-64 flex-shrink-0">
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-24">
                 <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">图书分类</h3>
-                <nav class="space-y-2">
-                    <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium bg-primary-50 text-primary-700 rounded-md">
+                <nav class="space-y-2" id="sidebar-nav">
+                    <a href="#" class="sidebar-link group flex items-center px-3 py-2 text-sm font-medium bg-primary-50 text-primary-700 rounded-md">
                         <i data-feather="code" class="text-primary-500 mr-3 flex-shrink-0 h-5 w-5"></i>
                         <span class="truncate">编程开发</span>
                     </a>
-                    <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                    <a href="#" class="sidebar-link group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
                         <i data-feather="cpu" class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-5 w-5"></i>
                         <span class="truncate">人工智能</span>
                     </a>
-                    <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                    <a href="#" class="sidebar-link group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
                         <i data-feather="database" class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-5 w-5"></i>
                         <span class="truncate">数据库</span>
                     </a>
-                    <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                    <a href="#" class="sidebar-link group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
                         <i data-feather="monitor" class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-5 w-5"></i>
                         <span class="truncate">操作系统</span>
                     </a>
@@ -235,36 +235,102 @@
         </div>
     </footer>
 
-    <!-- Init Feather Icons -->
     <script>
       feather.replace();
 
-      // Simple JS for Image Carousel
+      // --- Sidebar Interactive Logic ---
+      const sidebarLinks = document.querySelectorAll('.sidebar-link');
+      sidebarLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
+              e.preventDefault();
+              // Remove active states from all
+              sidebarLinks.forEach(l => {
+                  l.className = 'sidebar-link group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md';
+                  l.querySelector('i').className = l.querySelector('i').className.replace('text-primary-500', 'text-gray-400').replace('group-hover:text-gray-500', 'group-hover:text-gray-500');
+              });
+              // Add active state to clicked
+              e.currentTarget.className = 'sidebar-link group flex items-center px-3 py-2 text-sm font-medium bg-primary-50 text-primary-700 rounded-md';
+              e.currentTarget.querySelector('i').className = e.currentTarget.querySelector('i').className.replace('text-gray-400', 'text-primary-500').replace('group-hover:text-gray-500', '');
+          });
+      });
+
+      // --- Seamless Carousel Script ---
       const track = document.getElementById('carousel');
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
-      let currentIndex = 0;
-      const totalSlides = 2;
+      
+      let slides = Array.from(track.children);
+      
+      // Clone first and last slides for seamless loop
+      const firstClone = slides[0].cloneNode(true);
+      const lastClone = slides[slides.length - 1].cloneNode(true);
+      
+      track.appendChild(firstClone);
+      track.insertBefore(lastClone, slides[0]);
+      
+      // We now have N+2 slides. Start at index 1 (the original first slide).
+      let currentIndex = 1;
+      let totalSlides = slides.length + 2; 
 
-      function updateCarousel() {
+      // Initialize position without transition
+      track.style.transition = 'none';
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+      let slideInterval;
+
+      function updateCarousel(instant = false) {
+        if (instant) {
+            track.style.transition = 'none';
+        } else {
+            track.style.transition = 'transform 0.5s ease-in-out';
+        }
         track.style.transform = `translateX(-${currentIndex * 100}%)`;
       }
 
+      function moveNext() {
+          if (currentIndex >= totalSlides - 1) return;
+          currentIndex++;
+          updateCarousel();
+      }
+
+      function movePrev() {
+          if (currentIndex <= 0) return;
+          currentIndex--;
+          updateCarousel();
+      }
+
+      // Handle the transition end to reset position silently
+      track.addEventListener('transitionend', () => {
+          if (currentIndex === 0) {
+              currentIndex = totalSlides - 2;
+              updateCarousel(true);
+          }
+          if (currentIndex === totalSlides - 1) {
+              currentIndex = 1;
+              updateCarousel(true);
+          }
+      });
+
       nextBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        updateCarousel();
+          moveNext();
+          resetTimer();
       });
 
       prevBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-        updateCarousel();
+          movePrev();
+          resetTimer();
       });
 
-      // Auto play
-      setInterval(() => {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        updateCarousel();
-      }, 5000);
+      function startTimer() {
+          slideInterval = setInterval(moveNext, 4000);
+      }
+      
+      function resetTimer() {
+          clearInterval(slideInterval);
+          startTimer();
+      }
+
+      startTimer();
     </script>
 </body>
 </html>
