@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车 - 书香云端</title>
+    <meta name="description" content="查看您的购物车并结账。">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">书香云端</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">商店主页</a></li>
+                    <li class="nav-item"><a href="cart.html" class="nav-link active">购物车</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link">登录/注册</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        <h1 class="page-title" style="text-align: left;">您的购物车</h1>
+
+        <div class="cart-container">
+            <!-- Cart Items List -->
+            <section class="cart-items">
+                <article class="cart-item">
+                    <img src="images/book1.jpg" alt="重构" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <h3 class="cart-item-title"><a href="details.html" style="color: inherit;">重构：改善既有代码的设计</a></h3>
+                        <p class="cart-item-author">Martin Fowler</p>
+                        <div class="cart-item-price">¥89.00</div>
+                    </div>
+                    <div class="cart-item-actions">
+                        <div class="quantity-control" style="transform: scale(0.9);">
+                            <button type="button" class="qty-btn" aria-label="减少">-</button>
+                            <input type="number" class="qty-input" value="1" min="1" aria-label="数量">
+                            <button type="button" class="qty-btn" aria-label="增加">+</button>
+                        </div>
+                        <button class="cart-item-remove" aria-label="移除商品">移除</button>
+                    </div>
+                </article>
+
+                <article class="cart-item">
+                    <img src="images/book3.jpg" alt="设计模式" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <h3 class="cart-item-title"><a href="details.html" style="color: inherit;">设计模式：可复用面向对象软件的基础</a>
+                        </h3>
+                        <p class="cart-item-author">Erich Gamma 等</p>
+                        <div class="cart-item-price">¥68.50</div>
+                    </div>
+                    <div class="cart-item-actions">
+                        <div class="quantity-control" style="transform: scale(0.9);">
+                            <button type="button" class="qty-btn">-</button>
+                            <input type="number" class="qty-input" value="1" min="1">
+                            <button type="button" class="qty-btn">+</button>
+                        </div>
+                        <button class="cart-item-remove">移除</button>
+                    </div>
+                </article>
+            </section>
+
+            <!-- Cart Summary -->
+            <aside class="cart-summary">
+                <h2 class="cart-summary-title">订单摘要</h2>
+                <div class="cart-summary-row">
+                    <span>商品总价</span>
+                    <span>¥157.50</span>
+                </div>
+                <div class="cart-summary-row">
+                    <span>运费</span>
+                    <span>¥0.00</span>
+                </div>
+                <div class="cart-summary-row">
+                    <span>优惠折扣</span>
+                    <span>-¥10.00</span>
+                </div>
+
+                <div class="cart-summary-total">
+                    <span>合计金额</span>
+                    <span>¥147.50</span>
+                </div>
+
+                <a href="order.html" class="btn btn-primary btn-block" style="font-size: 1.125rem;">
+                    前往结账
+                </a>
+                <a href="index.html" class="btn btn-outline btn-block" style="margin-top: 1rem;">
+                    继续购物
+                </a>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div class="logo" style="color: white; font-size: 1.25rem;">书香云端</div>
+            <p class="footer-text">© 2026 书香云端 电子书店. 保留所有权利。计算机科学与技术软件工程作业。</p>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace()
+    </script>
+</body>
+
+</html>

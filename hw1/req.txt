@@ -1,0 +1,25 @@
+Ignoring wrong pointing object 6 0 (offset 0)
+Ignoring wrong pointing object 8 0 (offset 0)
+Ignoring wrong pointing object 10 0 (offset 0)
+Ignoring wrong pointing object 12 0 (offset 0)
+Ignoring wrong pointing object 14 0 (offset 0)
+Ignoring wrong pointing object 16 0 (offset 0)
+Ignoring wrong pointing object 18 0 (offset 0)
+Ignoring wrong pointing object 20 0 (offset 0)
+Ignoring wrong pointing object 22 0 (offset 0)
+2026-03-12	
+互联网应用开发技术-作业1	1. 作业要求	A. 安装配置开发环境：本学期开发将用到下列工具，请你预先安装好开发环境：	i. JDK		ii. IntelliJ	IDEA或VS	Code	iii. Node.js	iv. MySQL	Community	Server	v. MySQL	WorkBench或NaviCat	vi. 各种软件应该安装最新稳定版，不要安装最新测试版，以免开发时踩坑	vii. 其中对版本最敏感的是JDK和Node.js，一定要安装最新稳定版。	B. HTML5和CSS3：请你使用上课教学的内容，编写你自己的电子书点的前端页面，具体应该包括登录页面、主页即书籍列表页面、书籍详情页、购物车页、订单页，下面给出的是样例。你不必按照样例来实现，可以自由发挥。	
+	
+
+2	
+	
+	
+	
+
+3	
+	i. 使用Cursor或其他代码生成工具生成代码，你需要将你生成代码时与工具交互的过程写到“答题纸”中一并提交，即写清楚你的提示语	ii. 你应该做到HTML页面和样式分离，也可以使用TailWind	CSS来创建这些页面	；通过HTML和CSS的有效协作，尽量让你的页面美观	iii. 这些页面应该像上课演示的一样能够通过菜单项的链接进行跳转。尽管后续我们不会使用这次作业的方式实现页面路由，但是这对于你理解什么是路由会有好处	
+2. 提交要求	A. 请将你的HTML页面、CSS样式表，以及图片、文本文件、“答题纸”等辅助内容都压缩成一个压缩文件后上传，文件名：“学号-作业1.rar”，例如“123456789-作业1.rar”。	B. 如果你是按照Node.js工程创建的项目，切记不要将node_module子目录的内容压缩提交，以避免作业压缩包太大。	
+3. 评分标准，共6分：	A. 学会使用AI工具生成代码，完成登录页面、主页即书籍列表页面、书籍详情页、购物车页、订单页的构建（2分）	B. 完成上述页面之间的跳转（1分）	C. 代码规范性：	i. 正确使用了	HTML5	语义化标签	(<article>,	<header>,	<figure>	等)（1分）	
+
+4	
+ii. 严格使用外部	CSS	文件，无内联样式（1分）	iii. CSS	选择器使用合理（例如，尽量使用类选择器	class	而不是直接用标签选择器	p,	h1）（1分）	

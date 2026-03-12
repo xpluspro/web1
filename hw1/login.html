@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 书香云端 eBook Store</title>
+    <meta name="description" content="登录书香云端，获取您的专属电子书库。">
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入Heroicons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">书香云端</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">商店主页</a></li>
+                    <li class="nav-item"><a href="cart.html" class="nav-link">购物车</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link active">登录/注册</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content for Login Page -->
+    <main class="main-content auth-wrapper">
+        <article class="auth-card">
+            <div class="auth-header">
+                <h1 class="auth-title">欢迎回来</h1>
+                <p class="auth-subtitle">请输入您的账号信息以登录书香云端</p>
+            </div>
+            
+            <form action="index.html" method="get">
+                <div class="form-group">
+                    <label for="email" class="form-label">电子邮箱</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">密码</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
+                </div>
+                
+                <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--text-muted);">
+                        <input type="checkbox"> 记住我
+                    </label>
+                    <a href="#" style="font-size: 0.875rem;">忘记密码？</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">登录账号</button>
+            </form>
+
+            <div class="auth-decoration">
+                <span>或者</span>
+            </div>
+
+            <button type="button" class="btn btn-outline btn-block">
+                <i data-feather="github" style="margin-right: 0.5rem; width: 18px; height: 18px;"></i>
+                Github 快捷登录
+            </button>
+
+            <div class="auth-footer">
+                还没有账号？ <a href="#">立即注册</a>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div class="logo" style="color: white; font-size: 1.25rem;">书香云端</div>
+            <p class="footer-text">© 2026 书香云端 电子书店. 保留所有权利。计算机科学与技术软件工程作业。</p>
+        </div>
+    </footer>
+
+    <script>
+      feather.replace()
+    </script>
+</body>
+</html>
