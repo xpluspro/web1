@@ -1,113 +1,149 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>购物车 - 书香云端</title>
-    <meta name="description" content="查看您的购物车并结账。">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col">
 
-<body>
+    <!-- Top Navigation Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-primary-600 tracking-tight">书香云端</a>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="flex-1 max-w-lg mx-8 hidden md:block">
+                    <div class="relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-feather="search" class="h-4 w-4 text-gray-400"></i>
+                        </div>
+                        <input type="text" name="search" id="search" class="focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-full bg-gray-100 py-2 border-transparent" placeholder="搜索书名、作者或 ISBN...">
+                    </div>
+                </div>
 
-    <header class="site-header">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">书香云端</a>
-            <nav>
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="index.html" class="nav-link">商店主页</a></li>
-                    <li class="nav-item"><a href="cart.html" class="nav-link active">购物车</a></li>
-                    <li class="nav-item"><a href="login.html" class="nav-link">登录/注册</a></li>
-                </ul>
-            </nav>
+                <!-- Nav Links -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 px-1 pt-1 text-sm font-medium">商店主页</a>
+                    <a href="cart.html" class="text-primary-600 border-b-2 border-primary-600 px-1 pt-1 text-sm font-medium">购物车</a>
+                    <a href="login.html" class="text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 px-1 pt-1 text-sm font-medium">登录/注册</a>
+                </nav>
+            </div>
         </div>
     </header>
 
-    <main class="main-content container">
-        <h1 class="page-title" style="text-align: left;">您的购物车</h1>
+    <div class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row gap-8">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 flex-shrink-0 hidden lg:block">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-24">
+                <nav class="space-y-2">
+                    <a href="index.html" class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <i data-feather="arrow-left" class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-5 w-5"></i>
+                        <span class="truncate">继续购物</span>
+                    </a>
+                </nav>
+            </div>
+        </aside>
 
-        <div class="cart-container">
-            <!-- Cart Items List -->
-            <section class="cart-items">
-                <article class="cart-item">
-                    <img src="images/book1.jpg" alt="重构" class="cart-item-image">
-                    <div class="cart-item-details">
-                        <h3 class="cart-item-title"><a href="details.html" style="color: inherit;">重构：改善既有代码的设计</a></h3>
-                        <p class="cart-item-author">Martin Fowler</p>
-                        <div class="cart-item-price">¥89.00</div>
-                    </div>
-                    <div class="cart-item-actions">
-                        <div class="quantity-control" style="transform: scale(0.9);">
-                            <button type="button" class="qty-btn" aria-label="减少">-</button>
-                            <input type="number" class="qty-input" value="1" min="1" aria-label="数量">
-                            <button type="button" class="qty-btn" aria-label="增加">+</button>
+        <!-- Main Content Area -->
+        <main class="flex-1">
+            <h1 class="text-3xl font-bold text-gray-900 mb-8">您的购物车</h1>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Cart Items List -->
+                <section class="flex-1 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                    <ul class="divide-y divide-gray-100">
+                        <!-- Item 1 -->
+                        <li class="py-6 flex items-center">
+                            <img src="images/book1.jpg" alt="重构" class="h-24 w-20 object-contain rounded-md bg-gray-50 p-2 border border-gray-100 mr-6">
+                            <div class="flex-1">
+                                <h3 class="font-bold text-gray-900 text-lg mb-1"><a href="details.html" class="hover:text-primary-600">重构：改善既有代码的设计</a></h3>
+                                <p class="text-sm text-gray-500 mb-2">Martin Fowler</p>
+                                <div class="font-bold text-gray-900">¥89.00</div>
+                            </div>
+                            <div class="flex items-center space-x-6 ml-4">
+                                <div class="flex items-center border border-gray-300 rounded-md overflow-hidden h-9">
+                                    <button type="button" class="px-3 text-gray-500 hover:bg-gray-100 h-full">-</button>
+                                    <input type="number" class="w-12 text-center border-none shadow-none text-sm h-full" value="1" min="1">
+                                    <button type="button" class="px-3 text-gray-500 hover:bg-gray-100 h-full">+</button>
+                                </div>
+                                <button type="button" class="text-sm font-medium text-red-600 hover:text-red-500">移除</button>
+                            </div>
+                        </li>
+
+                        <!-- Item 2 -->
+                        <li class="py-6 flex items-center">
+                            <img src="images/book3.jpg" alt="设计模式" class="h-24 w-20 object-contain rounded-md bg-gray-50 p-2 border border-gray-100 mr-6">
+                            <div class="flex-1">
+                                <h3 class="font-bold text-gray-900 text-lg mb-1"><a href="details.html" class="hover:text-primary-600">设计模式：可复用面向对象软件的基础</a></h3>
+                                <p class="text-sm text-gray-500 mb-2">Erich Gamma 等</p>
+                                <div class="font-bold text-gray-900">¥68.50</div>
+                            </div>
+                            <div class="flex items-center space-x-6 ml-4">
+                                <div class="flex items-center border border-gray-300 rounded-md overflow-hidden h-9">
+                                    <button type="button" class="px-3 text-gray-500 hover:bg-gray-100 h-full">-</button>
+                                    <input type="number" class="w-12 text-center border-none shadow-none text-sm h-full" value="1" min="1">
+                                    <button type="button" class="px-3 text-gray-500 hover:bg-gray-100 h-full">+</button>
+                                </div>
+                                <button type="button" class="text-sm font-medium text-red-600 hover:text-red-500">移除</button>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Cart Summary -->
+                <aside class="w-full lg:w-80 flex-shrink-0">
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sticky top-24">
+                        <h2 class="text-lg font-bold text-gray-900 mb-6 pb-4 border-b border-gray-100">订单摘要</h2>
+                        
+                        <dl class="space-y-4 text-sm text-gray-600">
+                            <div class="flex justify-between">
+                                <dt>商品总价</dt>
+                                <dd class="font-medium text-gray-900">¥157.50</dd>
+                            </div>
+                            <div class="flex justify-between">
+                                <dt>运费</dt>
+                                <dd class="font-medium text-gray-900">¥0.00</dd>
+                            </div>
+                            <div class="flex justify-between text-green-600">
+                                <dt>优惠折扣</dt>
+                                <dd class="font-medium">-¥10.00</dd>
+                            </div>
+                            <div class="flex justify-between border-t border-gray-100 pt-4 mt-4 text-base">
+                                <dt class="font-bold text-gray-900">合计金额</dt>
+                                <dd class="font-bold text-gray-900">¥147.50</dd>
+                            </div>
+                        </dl>
+
+                        <div class="mt-6 space-y-3">
+                            <a href="order.html" class="w-full flex justify-center items-center px-4 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
+                                前往结账
+                            </a>
                         </div>
-                        <button class="cart-item-remove" aria-label="移除商品">移除</button>
                     </div>
-                </article>
+                </aside>
+            </div>
+        </main>
+    </div>
 
-                <article class="cart-item">
-                    <img src="images/book3.jpg" alt="设计模式" class="cart-item-image">
-                    <div class="cart-item-details">
-                        <h3 class="cart-item-title"><a href="details.html" style="color: inherit;">设计模式：可复用面向对象软件的基础</a>
-                        </h3>
-                        <p class="cart-item-author">Erich Gamma 等</p>
-                        <div class="cart-item-price">¥68.50</div>
-                    </div>
-                    <div class="cart-item-actions">
-                        <div class="quantity-control" style="transform: scale(0.9);">
-                            <button type="button" class="qty-btn">-</button>
-                            <input type="number" class="qty-input" value="1" min="1">
-                            <button type="button" class="qty-btn">+</button>
-                        </div>
-                        <button class="cart-item-remove">移除</button>
-                    </div>
-                </article>
-            </section>
-
-            <!-- Cart Summary -->
-            <aside class="cart-summary">
-                <h2 class="cart-summary-title">订单摘要</h2>
-                <div class="cart-summary-row">
-                    <span>商品总价</span>
-                    <span>¥157.50</span>
-                </div>
-                <div class="cart-summary-row">
-                    <span>运费</span>
-                    <span>¥0.00</span>
-                </div>
-                <div class="cart-summary-row">
-                    <span>优惠折扣</span>
-                    <span>-¥10.00</span>
-                </div>
-
-                <div class="cart-summary-total">
-                    <span>合计金额</span>
-                    <span>¥147.50</span>
-                </div>
-
-                <a href="order.html" class="btn btn-primary btn-block" style="font-size: 1.125rem;">
-                    前往结账
-                </a>
-                <a href="index.html" class="btn btn-outline btn-block" style="margin-top: 1rem;">
-                    继续购物
-                </a>
-            </aside>
-        </div>
-    </main>
-
-    <footer class="site-footer">
-        <div class="container footer-content">
-            <div class="logo" style="color: white; font-size: 1.25rem;">书香云端</div>
-            <p class="footer-text">© 2026 书香云端 电子书店. 保留所有权利。计算机科学与技术软件工程作业。</p>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-white font-bold text-xl tracking-tight">书香云端</div>
+            <p class="text-sm">© 2026 书香云端 电子书店. 保留所有权利。软件工程作业。</p>
         </div>
     </footer>
 
+    <!-- Init Feather Icons -->
     <script>
-        feather.replace()
+      feather.replace();
     </script>
 </body>
-
 </html>

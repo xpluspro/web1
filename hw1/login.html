@@ -4,81 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>登录 - 书香云端 eBook Store</title>
-    <meta name="description" content="登录书香云端，获取您的专属电子书库。">
     <link rel="stylesheet" href="style.css">
-    <!-- 引入Heroicons -->
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col">
 
-    <!-- Header Navigation -->
-    <header class="site-header">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">书香云端</a>
-            <nav>
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="index.html" class="nav-link">商店主页</a></li>
-                    <li class="nav-item"><a href="cart.html" class="nav-link">购物车</a></li>
-                    <li class="nav-item"><a href="login.html" class="nav-link active">登录/注册</a></li>
-                </ul>
-            </nav>
+    <!-- Top Navigation Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-primary-600 tracking-tight">书香云端</a>
+                </div>
+                
+                <!-- Nav Links -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 px-1 pt-1 text-sm font-medium">商店主页</a>
+                    <a href="cart.html" class="text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 px-1 pt-1 text-sm font-medium">购物车</a>
+                    <a href="login.html" class="text-primary-600 border-b-2 border-primary-600 px-1 pt-1 text-sm font-medium">登录/注册</a>
+                </nav>
+            </div>
         </div>
     </header>
 
-    <!-- Main Content for Login Page -->
-    <main class="main-content auth-wrapper">
-        <article class="auth-card">
-            <div class="auth-header">
-                <h1 class="auth-title">欢迎回来</h1>
-                <p class="auth-subtitle">请输入您的账号信息以登录书香云端</p>
+    <main class="flex-1 flex items-center justify-center p-4 py-12 px-4 sm:px-6 lg:px-8 bg-[url('https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center relative">
+        <!-- Backdrop overlay -->
+        <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm"></div>
+
+        <article class="bg-white/95 backdrop-blur-xl p-8 sm:p-10 rounded-2xl shadow-2xl w-full max-w-md relative z-10 border border-white/20">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">欢迎回来</h1>
+                <p class="text-sm text-gray-500">请输入您的账号信息以登录书香云端</p>
             </div>
             
-            <form action="index.html" method="get">
-                <div class="form-group">
-                    <label for="email" class="form-label">电子邮箱</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="your@email.com" required>
+            <form action="index.html" method="get" class="space-y-6">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">电子邮箱</label>
+                    <div class="mt-1">
+                        <input type="email" id="email" name="email" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm" placeholder="your@email.com" required>
+                    </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="password" class="form-label">密码</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">密码</label>
+                    <div class="mt-1">
+                        <input type="password" id="password" name="password" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm" placeholder="••••••••" required>
+                    </div>
                 </div>
                 
-                <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
-                    <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--text-muted);">
-                        <input type="checkbox"> 记住我
-                    </label>
-                    <a href="#" style="font-size: 0.875rem;">忘记密码？</a>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded">
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+                            记住我
+                        </label>
+                    </div>
+
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-primary-600 hover:text-primary-500">
+                            忘记密码？
+                        </a>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">登录账号</button>
+                <div>
+                    <button type="submit" class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
+                        登录账号
+                    </button>
+                </div>
             </form>
 
-            <div class="auth-decoration">
-                <span>或者</span>
+            <div class="mt-6">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500">
+                            或者
+                        </span>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button type="button" class="w-full inline-flex justify-center py-2.5 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i data-feather="github" class="w-5 h-5 mr-2 text-gray-500"></i>
+                        继续使用 Github 登录
+                    </button>
+                </div>
             </div>
 
-            <button type="button" class="btn btn-outline btn-block">
-                <i data-feather="github" style="margin-right: 0.5rem; width: 18px; height: 18px;"></i>
-                Github 快捷登录
-            </button>
-
-            <div class="auth-footer">
-                还没有账号？ <a href="#">立即注册</a>
+            <div class="mt-8 text-center text-sm text-gray-600">
+                还没有账号？ 
+                <a href="#" class="font-medium text-primary-600 hover:text-primary-500">
+                    立即注册
+                </a>
             </div>
         </article>
     </main>
 
     <!-- Footer -->
-    <footer class="site-footer">
-        <div class="container footer-content">
-            <div class="logo" style="color: white; font-size: 1.25rem;">书香云端</div>
-            <p class="footer-text">© 2026 书香云端 电子书店. 保留所有权利。计算机科学与技术软件工程作业。</p>
+    <footer class="bg-gray-900 text-gray-400 py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+            <div class="text-white font-bold tracking-tight mb-2">书香云端</div>
+            <p class="text-sm">© 2026 书香云端. 保留所有权利。</p>
         </div>
     </footer>
 
+    <!-- Init Feather Icons -->
     <script>
-      feather.replace()
+      feather.replace();
     </script>
 </body>
 </html>

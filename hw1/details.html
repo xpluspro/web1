@@ -1,91 +1,109 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>重构：改善既有代码的设计 - 详情 - 书香云端</title>
-    <meta name="description" content="书籍《重构：改善既有代码的设计》详细信息。">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col">
 
-<body>
+    <!-- Top Navigation Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-primary-600 tracking-tight">书香云端</a>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="flex-1 max-w-lg mx-8 hidden md:block">
+                    <div class="relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-feather="search" class="h-4 w-4 text-gray-400"></i>
+                        </div>
+                        <input type="text" name="search" id="search" class="focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-full bg-gray-100 py-2 border-transparent" placeholder="搜索书名、作者或 ISBN...">
+                    </div>
+                </div>
 
-    <header class="site-header">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">书香云端</a>
-            <nav>
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="index.html" class="nav-link active">商店主页</a></li>
-                    <li class="nav-item"><a href="cart.html" class="nav-link">购物车</a></li>
-                    <li class="nav-item"><a href="login.html" class="nav-link">登录/注册</a></li>
-                </ul>
-            </nav>
+                <!-- Nav Links -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-primary-600 border-b-2 border-primary-600 px-1 pt-1 text-sm font-medium">商店主页</a>
+                    <a href="cart.html" class="text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 px-1 pt-1 text-sm font-medium">购物车</a>
+                    <a href="login.html" class="text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 px-1 pt-1 text-sm font-medium">登录/注册</a>
+                </nav>
+            </div>
         </div>
     </header>
 
-    <main class="main-content container">
-        <div style="margin-bottom: 2rem;">
-            <a href="index.html"
-                style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-weight: 500;">
-                <i data-feather="arrow-left" style="width: 16px; height: 16px;"></i>
-                返回书单
-            </a>
-        </div>
-
-        <article class="product-detail">
-            <!-- Product Image -->
-            <div class="product-image-container">
-                <figure style="margin: 0; padding: 0; display: flex; justify-content: center;">
-                    <img src="images/book1.jpg" alt="重构：改善既有代码的设计" class="product-image">
-                </figure>
-            </div>
-
-            <!-- Product Info -->
-            <div class="product-meta">
-                <span class="book-category" style="margin-bottom: 1rem; font-size: 0.875rem;">软件工程</span>
-                <h1 class="product-title">重构：改善既有代码的设计</h1>
-                <p class="product-author">作者：Martin Fowler</p>
-                <div class="product-price">¥89.00</div>
-
-                <div class="product-description">
-                    <h3>内容简介</h3>
-                    <p style="margin-top: 0.5rem;">
-                        《重构:改善既有代码的设计》清晰揭示了重构的过程，解释了重构的原理和最佳实践方式，并给出了何时以及何地应该开始挖掘代码以求改善。书中给出了70多个可行的重构，每个重构都介绍了一种经过验证的代码变换手法的动机和技术。
-                    </p>
-                    <p style="margin-top: 1rem;">
-                        本书适合软件开发人员、项目管理人员等阅读，是一本值得反复咀嚼的经典软件工程指导书籍。
-                    </p>
-                </div>
-
-                <div class="product-actions">
-                    <div class="quantity-control">
-                        <button type="button" class="qty-btn"
-                            onclick="document.getElementById('qty').value = Math.max(1, parseInt(document.getElementById('qty').value) - 1)">-</button>
-                        <input type="number" id="qty" class="qty-input" value="1" min="1">
-                        <button type="button" class="qty-btn"
-                            onclick="document.getElementById('qty').value = parseInt(document.getElementById('qty').value) + 1">+</button>
-                    </div>
-                    <a href="cart.html" class="btn btn-primary" style="flex: 1; font-size: 1.125rem;">
-                        <i data-feather="shopping-bag" style="margin-right: 0.5rem;"></i>
-                        加入购物车
+    <div class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row gap-8">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 flex-shrink-0">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-24">
+                <nav class="space-y-2">
+                    <a href="index.html" class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <i data-feather="arrow-left" class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-5 w-5"></i>
+                        <span class="truncate">返回书单</span>
                     </a>
-                </div>
+                </nav>
             </div>
-        </article>
-    </main>
+        </aside>
 
-    <footer class="site-footer">
-        <div class="container footer-content">
-            <div class="logo" style="color: white; font-size: 1.25rem;">书香云端</div>
-            <p class="footer-text">© 2026 书香云端 电子书店. 保留所有权利。计算机科学与技术软件工程作业。</p>
+        <!-- Main Content Area -->
+        <main class="flex-1">
+            <article class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden lg:flex lg:flex-row">
+                <!-- Product Image -->
+                <div class="lg:w-1/2 p-8 lg:p-12 bg-gray-50 flex items-center justify-center border-b lg:border-b-0 lg:border-r border-gray-100">
+                    <img src="images/book1.jpg" alt="重构：改善既有代码的设计" class="max-w-full max-h-[500px] object-contain drop-shadow-2xl">
+                </div>
+
+                <!-- Product Info -->
+                <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col">
+                    <span class="text-sm font-black tracking-widest text-primary-600 uppercase mb-3">软件工程</span>
+                    <h1 class="text-3xl font-extrabold text-gray-900 mb-2 leading-tight">重构：改善既有代码的设计</h1>
+                    <p class="text-lg text-gray-500 mb-6">作者：Martin Fowler</p>
+                    <div class="text-3xl font-bold text-gray-900 mb-8 tracking-tight">¥89.00</div>
+                    
+                    <div class="prose prose-sm text-gray-600 mb-10 flex-1">
+                        <h3 class="text-gray-900 font-semibold mb-2 text-lg">内容简介</h3>
+                        <p class="mb-4">
+                            《重构:改善既有代码的设计》清晰揭示了重构的过程，解释了重构的原理和最佳实践方式，并给出了何时以及何地应该开始挖掘代码以求改善。书中给出了70多个可行的重构，每个重构都介绍了一种经过验证的代码变换手法的动机和技术。
+                        </p>
+                        <p>
+                            本书适合软件开发人员、项目管理人员等阅读，是一本值得反复咀嚼的经典软件工程指导书籍。
+                        </p>
+                    </div>
+
+                    <div class="flex items-center space-x-4 mt-auto">
+                        <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden h-12">
+                            <button type="button" class="px-4 text-gray-500 hover:bg-gray-100 h-full transition" onclick="document.getElementById('qty').value = Math.max(1, parseInt(document.getElementById('qty').value) - 1)">-</button>
+                            <input type="number" id="qty" class="w-16 text-center border-none focus:ring-0 font-medium h-full" value="1" min="1">
+                            <button type="button" class="px-4 text-gray-500 hover:bg-gray-100 h-full transition" onclick="document.getElementById('qty').value = parseInt(document.getElementById('qty').value) + 1">+</button>
+                        </div>
+                        <a href="cart.html" class="flex-1 flex items-center justify-center h-12 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors shadow-sm">
+                            <i data-feather="shopping-bag" class="w-5 h-5 mr-2"></i>
+                            加入购物车
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-white font-bold text-xl tracking-tight">书香云端</div>
+            <p class="text-sm">© 2026 书香云端 电子书店. 保留所有权利。软件工程作业。</p>
         </div>
     </footer>
 
+    <!-- Init Feather Icons -->
     <script>
-        feather.replace()
+      feather.replace();
     </script>
 </body>
-
 </html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,119 +7,264 @@
     <meta name="description" content="书香云端 eBook Store 主页，发现并选购您喜爱的电子书。">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/feather-icons"></script>
+    <!-- Placeholder inline script for Carousel, to be extracted or kept simple -->
+    <style>
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+    </style>
 </head>
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col">
 
-<body>
+    <!-- Top Navigation Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-primary-600 tracking-tight">书香云端</a>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="flex-1 max-w-lg mx-8 hidden md:block">
+                    <div class="relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-feather="search" class="h-4 w-4 text-gray-400"></i>
+                        </div>
+                        <input type="text" name="search" id="search" class="focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-full bg-gray-100 py-2 border-transparent" placeholder="搜索书名、作者或 ISBN...">
+                    </div>
+                </div>
 
-    <header class="site-header">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">书香云端</a>
-            <nav>
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="index.html" class="nav-link active">商店主页</a></li>
-                    <li class="nav-item"><a href="cart.html" class="nav-link">购物车</a></li>
-                    <li class="nav-item"><a href="login.html" class="nav-link">登录/注册</a></li>
-                </ul>
-            </nav>
+                <!-- Nav Links -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-primary-600 border-b-2 border-primary-600 px-1 pt-1 text-sm font-medium">商店主页</a>
+                    <a href="cart.html" class="text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 px-1 pt-1 text-sm font-medium">购物车</a>
+                    <a href="login.html" class="text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 px-1 pt-1 text-sm font-medium">登录/注册</a>
+                </nav>
+            </div>
         </div>
     </header>
 
-    <main class="main-content container">
-        <h1 class="page-title">发现好书</h1>
+    <div class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row gap-8">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 flex-shrink-0">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-24">
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">图书分类</h3>
+                <nav class="space-y-2">
+                    <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium bg-primary-50 text-primary-700 rounded-md">
+                        <i data-feather="code" class="text-primary-500 mr-3 flex-shrink-0 h-5 w-5"></i>
+                        <span class="truncate">编程开发</span>
+                    </a>
+                    <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <i data-feather="cpu" class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-5 w-5"></i>
+                        <span class="truncate">人工智能</span>
+                    </a>
+                    <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <i data-feather="database" class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-5 w-5"></i>
+                        <span class="truncate">数据库</span>
+                    </a>
+                    <a href="#" class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <i data-feather="monitor" class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-5 w-5"></i>
+                        <span class="truncate">操作系统</span>
+                    </a>
+                </nav>
 
-        <section class="book-grid">
-            <!-- Book Item 1 -->
-            <article class="book-card">
-                <a href="details.html" class="book-cover-wrapper">
-                    <figure style="margin: 0; padding: 0; height: 100%;">
-                        <img src="images/book1.jpg" alt="重构：改善既有代码的设计" class="book-cover">
-                    </figure>
-                </a>
-                <div class="book-info">
-                    <span class="book-category">软件工程</span>
-                    <h2 class="book-title"><a href="details.html">重构：改善既有代码的设计</a></h2>
-                    <p class="book-author">Martin Fowler</p>
-                    <div class="book-footer">
-                        <span class="book-price">¥89.00</span>
-                        <button class="btn btn-primary" onclick="alert('已加入购物车')">
-                            <i data-feather="shopping-cart" style="width: 16px; height: 16px;"></i>
-                        </button>
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mt-8 mb-4">价格区间</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <input id="price-1" name="price" type="radio" checked class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300">
+                        <label for="price-1" class="ml-3 block text-sm font-medium text-gray-700"> 全部 </label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="price-2" name="price" type="radio" class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300">
+                        <label for="price-2" class="ml-3 block text-sm font-medium text-gray-700"> ¥0 - ¥50 </label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="price-3" name="price" type="radio" class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300">
+                        <label for="price-3" class="ml-3 block text-sm font-medium text-gray-700"> ¥50 - ¥100 </label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="price-4" name="price" type="radio" class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300">
+                        <label for="price-4" class="ml-3 block text-sm font-medium text-gray-700"> ¥100以上 </label>
                     </div>
                 </div>
-            </article>
+            </div>
+        </aside>
 
-            <!-- Book Item 2 -->
-            <article class="book-card">
-                <a href="details.html" class="book-cover-wrapper">
-                    <figure style="margin: 0; padding: 0; height: 100%;">
-                        <img src="images/book2.jpg" alt="人月神话" class="book-cover">
-                    </figure>
-                </a>
-                <div class="book-info">
-                    <span class="book-category">项目管理</span>
-                    <h2 class="book-title"><a href="details.html">人月神话</a></h2>
-                    <p class="book-author">Frederick P. Brooks Jr.</p>
-                    <div class="book-footer">
-                        <span class="book-price">¥45.00</span>
-                        <button class="btn btn-primary" onclick="alert('已加入购物车')">
-                            <i data-feather="shopping-cart" style="width: 16px; height: 16px;"></i>
-                        </button>
+        <!-- Main Content Area -->
+        <main class="flex-1">
+            
+            <!-- Hero Carousel for Recommendations -->
+            <section class="mb-10 relative overflow-hidden rounded-2xl shadow-md border border-gray-200 bg-white">
+                <div class="carousel-track h-64 sm:h-80 w-full" id="carousel">
+                    <!-- Slide 1 -->
+                    <div class="w-full flex-shrink-0 relative">
+                        <img src="images/book1.jpg" class="w-full h-full object-cover opacity-60 mix-blend-multiply" alt="Banner 1">
+                        <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-transparent flex flex-col justify-center px-8 sm:px-12 text-white">
+                            <span class="uppercase tracking-wider text-sm font-bold text-primary-300 mb-2">本周推荐</span>
+                            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">经典软件工程书单</h2>
+                            <p class="max-w-md text-gray-200 mb-6">阅读大师之作，提升架构视野与代码品味。</p>
+                            <a href="details.html" class="inline-flex w-fit items-center px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-lg transition-colors">
+                                立即查看
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="w-full flex-shrink-0 relative">
+                        <img src="images/book2.jpg" class="w-full h-full object-cover opacity-60 mix-blend-multiply" alt="Banner 2">
+                        <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-transparent flex flex-col justify-center px-8 sm:px-12 text-white">
+                            <span class="uppercase tracking-wider text-sm font-bold text-indigo-300 mb-2">新书上架</span>
+                            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">深入理解计算机系统</h2>
+                            <p class="max-w-md text-gray-200 mb-6">程序员必读的底层逻辑经典之作。</p>
+                            <a href="details.html" class="inline-flex w-fit items-center px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors">
+                                购买享8折优惠
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </article>
+                
+                <!-- Carousel Controls -->
+                <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-sm text-white rounded-full p-2 transition">
+                    <i data-feather="chevron-left" class="w-6 h-6"></i>
+                </button>
+                <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-sm text-white rounded-full p-2 transition">
+                    <i data-feather="chevron-right" class="w-6 h-6"></i>
+                </button>
+            </section>
 
-            <!-- Book Item 3 -->
-            <article class="book-card">
-                <a href="details.html" class="book-cover-wrapper">
-                    <figure style="margin: 0; padding: 0; height: 100%;">
-                        <img src="images/book3.jpg" alt="设计模式" class="book-cover">
-                    </figure>
-                </a>
-                <div class="book-info">
-                    <span class="book-category">软件架构</span>
-                    <h2 class="book-title"><a href="details.html">设计模式：可复用面向对象软件的基础</a></h2>
-                    <p class="book-author">Erich Gamma 等</p>
-                    <div class="book-footer">
-                        <span class="book-price">¥68.50</span>
-                        <button class="btn btn-primary" onclick="alert('已加入购物车')">
-                            <i data-feather="shopping-cart" style="width: 16px; height: 16px;"></i>
-                        </button>
-                    </div>
+            <!-- Book Grid Header -->
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold text-gray-900">全部图书</h1>
+                <div class="flex items-center space-x-2 text-sm text-gray-500">
+                    <span>排序方式:</span>
+                    <select class="border-none bg-transparent text-sm font-medium text-gray-900 focus:ring-0 cursor-pointer">
+                        <option>默认排序</option>
+                        <option>价格降序</option>
+                        <option>价格升序</option>
+                        <option>最新出版</option>
+                    </select>
                 </div>
-            </article>
+            </div>
 
-            <!-- Book Item 4 -->
-            <article class="book-card">
-                <a href="details.html" class="book-cover-wrapper">
-                    <figure style="margin: 0; padding: 0; height: 100%;">
-                        <img src="images/book4.jpg" alt="代码整洁之道" class="book-cover">
-                    </figure>
-                </a>
-                <div class="book-info">
-                    <span class="book-category">编程规范</span>
-                    <h2 class="book-title"><a href="details.html">代码整洁之道</a></h2>
-                    <p class="book-author">Robert C. Martin</p>
-                    <div class="book-footer">
-                        <span class="book-price">¥72.00</span>
-                        <button class="btn btn-primary" onclick="alert('已加入购物车')">
-                            <i data-feather="shopping-cart" style="width: 16px; height: 16px;"></i>
-                        </button>
+            <!-- Books Grid -->
+            <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Book Item 1 -->
+                <article class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 overflow-hidden flex flex-col group">
+                    <a href="details.html" class="block relative pt-[100%] bg-gray-50 overflow-hidden">
+                        <img src="images/book1.jpg" alt="重构：改善既有代码的设计" class="absolute inset-0 w-full h-full object-contain p-6 transform group-hover:scale-105 transition-transform duration-500">
+                    </a>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="text-xs font-black tracking-widest text-primary-600 uppercase mb-2">软件工程</span>
+                        <h2 class="text-lg font-bold text-gray-900 mb-1 leading-tight"><a href="details.html" class="hover:text-primary-600">重构：改善既有代码的设计</a></h2>
+                        <p class="text-sm text-gray-500 mb-4">Martin Fowler</p>
+                        <div class="mt-auto flex items-center justify-between border-t border-gray-100 pt-4">
+                            <span class="text-xl font-bold tracking-tight text-gray-900">¥89.00</span>
+                            <button class="flex items-center justify-center p-2 rounded-full bg-primary-50 text-primary-600 hover:bg-primary-600 hover:text-white transition-colors" onclick="alert('已加入购物车')">
+                                <i data-feather="shopping-cart" class="w-5 h-5"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </article>
-        </section>
-    </main>
+                </article>
 
-    <footer class="site-footer">
-        <div class="container footer-content">
-            <div class="logo" style="color: white; font-size: 1.25rem;">书香云端</div>
-            <p class="footer-text">© 2026 书香云端 电子书店. 保留所有权利。计算机科学与技术软件工程作业。</p>
+                <!-- Book Item 2 -->
+                <article class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 overflow-hidden flex flex-col group">
+                    <a href="details.html" class="block relative pt-[100%] bg-gray-50 overflow-hidden">
+                        <img src="images/book2.jpg" alt="人月神话" class="absolute inset-0 w-full h-full object-contain p-6 transform group-hover:scale-105 transition-transform duration-500">
+                    </a>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="text-xs font-black tracking-widest text-primary-600 uppercase mb-2">项目管理</span>
+                        <h2 class="text-lg font-bold text-gray-900 mb-1 leading-tight"><a href="details.html" class="hover:text-primary-600">人月神话</a></h2>
+                        <p class="text-sm text-gray-500 mb-4">Frederick P. Brooks Jr.</p>
+                        <div class="mt-auto flex items-center justify-between border-t border-gray-100 pt-4">
+                            <span class="text-xl font-bold tracking-tight text-gray-900">¥45.00</span>
+                            <button class="flex items-center justify-center p-2 rounded-full bg-primary-50 text-primary-600 hover:bg-primary-600 hover:text-white transition-colors" onclick="alert('已加入购物车')">
+                                <i data-feather="shopping-cart" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Book Item 3 -->
+                <article class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 overflow-hidden flex flex-col group">
+                    <a href="details.html" class="block relative pt-[100%] bg-gray-50 overflow-hidden">
+                        <img src="images/book3.jpg" alt="设计模式" class="absolute inset-0 w-full h-full object-contain p-6 transform group-hover:scale-105 transition-transform duration-500">
+                    </a>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="text-xs font-black tracking-widest text-primary-600 uppercase mb-2">软件架构</span>
+                        <h2 class="text-lg font-bold text-gray-900 mb-1 leading-tight"><a href="details.html" class="hover:text-primary-600">设计模式：可复用面向对象软件的基础</a></h2>
+                        <p class="text-sm text-gray-500 mb-4">Erich Gamma 等</p>
+                        <div class="mt-auto flex items-center justify-between border-t border-gray-100 pt-4">
+                            <span class="text-xl font-bold tracking-tight text-gray-900">¥68.50</span>
+                            <button class="flex items-center justify-center p-2 rounded-full bg-primary-50 text-primary-600 hover:bg-primary-600 hover:text-white transition-colors" onclick="alert('已加入购物车')">
+                                <i data-feather="shopping-cart" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Book Item 4 -->
+                <article class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 overflow-hidden flex flex-col group">
+                    <a href="details.html" class="block relative pt-[100%] bg-gray-50 overflow-hidden">
+                        <img src="images/book4.jpg" alt="代码整洁之道" class="absolute inset-0 w-full h-full object-contain p-6 transform group-hover:scale-105 transition-transform duration-500">
+                    </a>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="text-xs font-black tracking-widest text-primary-600 uppercase mb-2">编程规范</span>
+                        <h2 class="text-lg font-bold text-gray-900 mb-1 leading-tight"><a href="details.html" class="hover:text-primary-600">代码整洁之道</a></h2>
+                        <p class="text-sm text-gray-500 mb-4">Robert C. Martin</p>
+                        <div class="mt-auto flex items-center justify-between border-t border-gray-100 pt-4">
+                            <span class="text-xl font-bold tracking-tight text-gray-900">¥72.00</span>
+                            <button class="flex items-center justify-center p-2 rounded-full bg-primary-50 text-primary-600 hover:bg-primary-600 hover:text-white transition-colors" onclick="alert('已加入购物车')">
+                                <i data-feather="shopping-cart" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-white font-bold text-xl tracking-tight">书香云端</div>
+            <p class="text-sm">© 2026 书香云端 电子书店. 保留所有权利。软件工程作业。</p>
         </div>
     </footer>
 
+    <!-- Init Feather Icons -->
     <script>
-        feather.replace()
+      feather.replace();
+
+      // Simple JS for Image Carousel
+      const track = document.getElementById('carousel');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      let currentIndex = 0;
+      const totalSlides = 2;
+
+      function updateCarousel() {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      }
+
+      nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateCarousel();
+      });
+
+      prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+      });
+
+      // Auto play
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateCarousel();
+      }, 5000);
     </script>
 </body>
-
 </html>
