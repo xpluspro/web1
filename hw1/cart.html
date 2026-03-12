@@ -59,42 +59,8 @@
             <div class="flex flex-col lg:flex-row gap-8">
                 <!-- Cart Items List -->
                 <section class="flex-1 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-                    <ul class="divide-y divide-gray-100">
-                        <!-- Item 1 -->
-                        <li class="py-6 flex items-center cart-row">
-                            <img src="images/book1.jpg" alt="重构" class="h-24 w-20 object-contain rounded-md bg-gray-50 p-2 border border-gray-100 mr-6">
-                            <div class="flex-1">
-                                <h3 class="font-bold text-gray-900 text-lg mb-1"><a href="details.html" class="hover:text-primary-600">重构：改善既有代码的设计</a></h3>
-                                <p class="text-sm text-gray-500 mb-2">Martin Fowler</p>
-                                <div class="font-bold text-gray-900 item-price" data-price="89.00">¥89.00</div>
-                            </div>
-                            <div class="flex items-center space-x-6 ml-4">
-                                <div class="flex items-center border border-gray-300 rounded-md overflow-hidden h-9">
-                                    <button type="button" class="px-3 text-gray-500 hover:bg-gray-100 h-full qty-btn" data-action="minus">-</button>
-                                    <input type="number" class="w-12 text-center border-none shadow-none text-sm h-full item-qty" value="1" min="1">
-                                    <button type="button" class="px-3 text-gray-500 hover:bg-gray-100 h-full qty-btn" data-action="plus">+</button>
-                                </div>
-                                <button type="button" class="text-sm font-medium text-red-600 hover:text-red-500 remove-btn">移除</button>
-                            </div>
-                        </li>
-
-                        <!-- Item 2 -->
-                        <li class="py-6 flex items-center cart-row">
-                            <img src="images/book3.jpg" alt="设计模式" class="h-24 w-20 object-contain rounded-md bg-gray-50 p-2 border border-gray-100 mr-6">
-                            <div class="flex-1">
-                                <h3 class="font-bold text-gray-900 text-lg mb-1"><a href="details.html" class="hover:text-primary-600">设计模式：可复用面向对象软件的基础</a></h3>
-                                <p class="text-sm text-gray-500 mb-2">Erich Gamma 等</p>
-                                <div class="font-bold text-gray-900 item-price" data-price="68.50">¥68.50</div>
-                            </div>
-                            <div class="flex items-center space-x-6 ml-4">
-                                <div class="flex items-center border border-gray-300 rounded-md overflow-hidden h-9">
-                                    <button type="button" class="px-3 text-gray-500 hover:bg-gray-100 h-full qty-btn" data-action="minus">-</button>
-                                    <input type="number" class="w-12 text-center border-none shadow-none text-sm h-full item-qty" value="1" min="1">
-                                    <button type="button" class="px-3 text-gray-500 hover:bg-gray-100 h-full qty-btn" data-action="plus">+</button>
-                                </div>
-                                <button type="button" class="text-sm font-medium text-red-600 hover:text-red-500 remove-btn">移除</button>
-                            </div>
-                        </li>
+                    <ul class="divide-y divide-gray-100" id="cart-items-container">
+                        <!-- Items rendered dynamically by cart.js -->
                     </ul>
                 </section>
 
@@ -142,81 +108,69 @@
     </footer>
 
     <!-- Init Feather Icons -->
+    <script src="cart.js"></script>
     <script>
       feather.replace();
 
-      // --- Cart Interaction Logic ---
-      function updateCartSummary() {
-          const rows = document.querySelectorAll('.cart-row');
-          let subtotal = 0;
+      function renderCart() {
+          const cart = getCart();
+          const container = document.getElementById('cart-items-container');
+          if (!container) return;
           
-          rows.forEach(row => {
-              const priceElement = row.querySelector('.item-price');
-              const qtyElement = row.querySelector('.item-qty');
-              
-              if(priceElement && qtyElement) {
-                  const price = parseFloat(priceElement.getAttribute('data-price'));
-                  const qty = parseInt(qtyElement.value);
-                  subtotal += (price * qty);
-              }
+          container.innerHTML = '';
+          
+          if (cart.length === 0) {
+              container.innerHTML = '<li class="py-12 text-center text-gray-500 text-lg">您的购物车还是空的，快去选购吧！</li>';
+              updateCartSummary(cart);
+              return;
+          }
+
+          cart.forEach(item => {
+              const li = document.createElement('li');
+              li.className = 'py-6 flex flex-col sm:flex-row items-center cart-row border-b border-gray-100 last:border-0';
+              li.innerHTML = `
+                  <img src="${item.image || 'images/book1.jpg'}" alt="${item.title}" class="h-24 w-20 flex-shrink-0 object-contain rounded-md bg-gray-50 p-2 border border-gray-100 sm:mr-6 mb-4 sm:mb-0">
+                  <div class="flex-1 text-center sm:text-left w-full sm:w-auto">
+                      <h3 class="font-bold text-gray-900 text-lg mb-1"><a href="details.html" class="hover:text-primary-600">${item.title}</a></h3>
+                      <p class="text-sm text-gray-500 mb-2">${item.author || ''}</p>
+                      <div class="font-bold text-primary-600 item-price text-lg">¥${item.price.toFixed(2)}</div>
+                  </div>
+                  <div class="flex items-center justify-between sm:justify-start space-x-6 w-full sm:w-auto mt-4 sm:mt-0 px-4 sm:px-0">
+                      <div class="flex items-center border border-gray-300 rounded-md overflow-hidden h-9">
+                          <button type="button" class="px-3 text-gray-500 hover:bg-gray-100 h-full qty-btn" onclick="updateItemQty('${item.id}', -1)">-</button>
+                          <input type="number" class="w-12 text-center border-none shadow-none text-sm h-full item-qty focus:ring-0" value="${item.qty}" min="1" onchange="setItemQty('${item.id}', this.value)">
+                          <button type="button" class="px-3 text-gray-500 hover:bg-gray-100 h-full qty-btn" onclick="updateItemQty('${item.id}', 1)">+</button>
+                      </div>
+                      <button type="button" class="text-sm font-medium text-red-500 hover:text-red-700 remove-btn transition-colors" onclick="removeItem('${item.id}')">移除商品</button>
+                  </div>
+              `;
+              container.appendChild(li);
           });
           
-          const discount = rows.length > 0 ? 10.00 : 0.00;
+          updateCartSummary(cart);
+      }
+
+      function updateCartSummary(cart) {
+          let subtotal = 0;
+          cart.forEach(item => { subtotal += item.price * item.qty; });
+          
+          const discount = cart.length > 0 ? 10.00 : 0.00;
           const total = Math.max(0, subtotal - discount);
 
-          // Update DOM
           const summaryContainer = document.querySelector('.cart-summary');
           if (!summaryContainer) return;
           
           const summaryRows = summaryContainer.querySelectorAll('dd');
           if(summaryRows.length >= 3) {
               summaryRows[0].textContent = `¥${subtotal.toFixed(2)}`;
-              summaryRows[2].textContent = rows.length > 0 ? `-¥${discount.toFixed(2)}` : `¥0.00`;
+              
+              summaryRows[2].textContent = cart.length > 0 ? `-¥${discount.toFixed(2)}` : `¥0.00`;
               summaryRows[3].textContent = `¥${total.toFixed(2)}`;
           }
       }
 
-      // Add event listeners to remove buttons
-      document.querySelectorAll('.remove-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-              const row = e.target.closest('.cart-row');
-              if (row) {
-                  row.remove();
-                  updateCartSummary();
-              }
-          });
-      });
-
-      // Add event listeners to quantity buttons and inputs
-      document.querySelectorAll('.cart-row').forEach(row => {
-          const minusBtn = row.querySelector('[data-action="minus"]');
-          const plusBtn = row.querySelector('[data-action="plus"]');
-          const qtyInput = row.querySelector('.item-qty');
-
-          if(minusBtn && plusBtn && qtyInput) {
-              minusBtn.addEventListener('click', () => {
-                  let val = parseInt(qtyInput.value);
-                  if (val > 1) {
-                      qtyInput.value = val - 1;
-                      updateCartSummary();
-                  }
-              });
-              
-              plusBtn.addEventListener('click', () => {
-                  let val = parseInt(qtyInput.value);
-                  qtyInput.value = val + 1;
-                  updateCartSummary();
-              });
-
-              qtyInput.addEventListener('change', () => {
-                  let val = parseInt(qtyInput.value);
-                  if (isNaN(val) || val < 1) {
-                      qtyInput.value = 1;
-                  }
-                  updateCartSummary();
-              });
-          }
-      });
+      window.addEventListener('cartUpdated', renderCart);
+      document.addEventListener('DOMContentLoaded', renderCart);
     </script>
 </body>
 </html>

@@ -83,10 +83,10 @@
                             <input type="number" id="qty" class="w-16 text-center border-none focus:ring-0 font-medium h-full" value="1" min="1">
                             <button type="button" class="px-4 text-gray-500 hover:bg-gray-100 h-full transition" onclick="document.getElementById('qty').value = parseInt(document.getElementById('qty').value) + 1">+</button>
                         </div>
-                        <a href="cart.html" class="flex-1 flex items-center justify-center h-12 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors shadow-sm">
+                        <button type="button" onclick="addToCart({id: 'book1', title: '重构：改善既有代码的设计', author: 'Martin Fowler', price: 89.00, image: 'images/book1.jpg'}, parseInt(document.getElementById('qty').value)); window.location.href='cart.html';" class="flex-1 flex items-center justify-center h-12 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors shadow-sm cursor-pointer border-none outline-none">
                             <i data-feather="shopping-bag" class="w-5 h-5 mr-2"></i>
                             加入购物车
-                        </a>
+                        </button>
                     </div>
                 </div>
             </article>
@@ -102,6 +102,7 @@
     </footer>
 
     <!-- Init Feather Icons -->
+    <script src="cart.js"></script>
     <script>
       feather.replace();
     </script>

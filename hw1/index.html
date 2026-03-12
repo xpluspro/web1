@@ -162,7 +162,7 @@
                         <p class="text-sm text-gray-500 mb-4">Martin Fowler</p>
                         <div class="mt-auto flex items-center justify-between border-t border-gray-100 pt-4">
                             <span class="text-xl font-bold tracking-tight text-gray-900">¥89.00</span>
-                            <button class="flex items-center justify-center p-2 rounded-full bg-primary-50 text-primary-600 hover:bg-primary-600 hover:text-white transition-colors" onclick="alert('已加入购物车')">
+                            <button class="flex items-center justify-center p-2 rounded-full bg-primary-50 text-primary-600 hover:bg-primary-600 hover:text-white transition-colors" onclick="addToCart({id: 'book1', title: '重构：改善既有代码的设计', author: 'Martin Fowler', price: 89.00, image: 'images/book1.jpg'}); alert('已成功加入购物车！');">
                                 <i data-feather="shopping-cart" class="w-5 h-5"></i>
                             </button>
                         </div>
@@ -180,7 +180,7 @@
                         <p class="text-sm text-gray-500 mb-4">Frederick P. Brooks Jr.</p>
                         <div class="mt-auto flex items-center justify-between border-t border-gray-100 pt-4">
                             <span class="text-xl font-bold tracking-tight text-gray-900">¥45.00</span>
-                            <button class="flex items-center justify-center p-2 rounded-full bg-primary-50 text-primary-600 hover:bg-primary-600 hover:text-white transition-colors" onclick="alert('已加入购物车')">
+                            <button class="flex items-center justify-center p-2 rounded-full bg-primary-50 text-primary-600 hover:bg-primary-600 hover:text-white transition-colors" onclick="addToCart({id: 'book2', title: '人月神话', author: 'Frederick P. Brooks Jr.', price: 45.00, image: 'images/book2.jpg'}); alert('已成功加入购物车！');">
                                 <i data-feather="shopping-cart" class="w-5 h-5"></i>
                             </button>
                         </div>
@@ -198,7 +198,7 @@
                         <p class="text-sm text-gray-500 mb-4">Erich Gamma 等</p>
                         <div class="mt-auto flex items-center justify-between border-t border-gray-100 pt-4">
                             <span class="text-xl font-bold tracking-tight text-gray-900">¥68.50</span>
-                            <button class="flex items-center justify-center p-2 rounded-full bg-primary-50 text-primary-600 hover:bg-primary-600 hover:text-white transition-colors" onclick="alert('已加入购物车')">
+                            <button class="flex items-center justify-center p-2 rounded-full bg-primary-50 text-primary-600 hover:bg-primary-600 hover:text-white transition-colors" onclick="addToCart({id: 'book3', title: '设计模式：可复用面向对象软件的基础', author: 'Erich Gamma 等', price: 68.50, image: 'images/book3.jpg'}); alert('已成功加入购物车！');">
                                 <i data-feather="shopping-cart" class="w-5 h-5"></i>
                             </button>
                         </div>
@@ -216,7 +216,7 @@
                         <p class="text-sm text-gray-500 mb-4">Robert C. Martin</p>
                         <div class="mt-auto flex items-center justify-between border-t border-gray-100 pt-4">
                             <span class="text-xl font-bold tracking-tight text-gray-900">¥72.00</span>
-                            <button class="flex items-center justify-center p-2 rounded-full bg-primary-50 text-primary-600 hover:bg-primary-600 hover:text-white transition-colors" onclick="alert('已加入购物车')">
+                            <button class="flex items-center justify-center p-2 rounded-full bg-primary-50 text-primary-600 hover:bg-primary-600 hover:text-white transition-colors" onclick="addToCart({id: 'book4', title: '代码整洁之道', author: 'Robert C. Martin', price: 72.00, image: 'images/book4.jpg'}); alert('已成功加入购物车！');">
                                 <i data-feather="shopping-cart" class="w-5 h-5"></i>
                             </button>
                         </div>
@@ -235,6 +235,7 @@
         </div>
     </footer>
 
+    <script src="cart.js"></script>
     <script>
       feather.replace();
 
