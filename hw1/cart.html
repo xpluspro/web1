@@ -131,7 +131,7 @@
               li.innerHTML = `
                   <img src="${item.image || 'images/book1.jpg'}" alt="${item.title}" class="h-24 w-20 flex-shrink-0 object-contain rounded-md bg-gray-50 p-2 border border-gray-100 sm:mr-6 mb-4 sm:mb-0">
                   <div class="flex-1 text-center sm:text-left w-full sm:w-auto">
-                      <h3 class="font-bold text-gray-900 text-lg mb-1"><a href="details.html" class="hover:text-primary-600">${item.title}</a></h3>
+                      <h3 class="font-bold text-gray-900 text-lg mb-1"><a href="details${item.id.replace('book', '')}.html" class="hover:text-primary-600">${item.title}</a></h3>
                       <p class="text-sm text-gray-500 mb-2">${item.author || ''}</p>
                       <div class="font-bold text-primary-600 item-price text-lg">¥${item.price.toFixed(2)}</div>
                   </div>

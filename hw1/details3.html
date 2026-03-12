@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设计模式 - 详情 - 书香云端</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-primary-600 tracking-tight">书香云端</a>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="flex-1 max-w-lg mx-8 hidden md:block">
+                    <div class="relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-feather="search" class="h-4 w-4 text-gray-400"></i>
+                        </div>
+                        <input type="text" name="search" id="search" class="focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-full bg-gray-100 py-2 border-transparent" placeholder="搜索书名、作者或 ISBN...">
+                    </div>
+                </div>
+
+                <!-- Nav Links -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-primary-600 border-b-2 border-primary-600 px-1 pt-1 text-sm font-medium">商店主页</a>
+                    <a href="cart.html" class="text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 px-1 pt-1 text-sm font-medium">购物车</a>
+                    <a href="login.html" class="text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 px-1 pt-1 text-sm font-medium">登录/注册</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row gap-8">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 flex-shrink-0">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-24">
+                <nav class="space-y-2">
+                    <a href="index.html" class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <i data-feather="arrow-left" class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-5 w-5"></i>
+                        <span class="truncate">返回书单</span>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1">
+            <article class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden lg:flex lg:flex-row">
+                <!-- Product Image -->
+                <div class="lg:w-1/2 p-8 lg:p-12 bg-gray-50 flex items-center justify-center border-b lg:border-b-0 lg:border-r border-gray-100">
+                    <img src="images/book3.jpg" alt="设计模式" class="max-w-full max-h-[500px] object-contain drop-shadow-2xl">
+                </div>
+
+                <!-- Product Info -->
+                <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col">
+                    <span class="text-sm font-black tracking-widest text-primary-600 uppercase mb-3">软件架构</span>
+                    <h1 class="text-3xl font-extrabold text-gray-900 mb-2 leading-tight">设计模式：可复用面向对象软件的基础</h1>
+                    <p class="text-lg text-gray-500 mb-6">作者：Erich Gamma 等</p>
+                    <div class="text-3xl font-bold text-gray-900 mb-8 tracking-tight">¥68.50</div>
+                    
+                    <div class="prose prose-sm text-gray-600 mb-10 flex-1">
+                        <h3 class="text-gray-900 font-semibold mb-2 text-lg">内容简介</h3>
+                        <p class="mb-4">
+                            本书结合设计实作和经过深思熟虑的原则，详述了面向对象设计中23个经典的“设计模式”。通过使用这些模式，你可以创建出更加优雅、可重用、更具弹性的软件架构。
+                        </p>
+                        <p>
+                            被广大程序员尊奉为面向对象编程领域的“四人帮”(GoF) 奇书，是高级开发人员进阶路上的必学内功。
+                        </p>
+                    </div>
+
+                    <div class="flex items-center space-x-4 mt-auto">
+                        <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden h-12">
+                            <button type="button" class="px-4 text-gray-500 hover:bg-gray-100 h-full transition" onclick="document.getElementById('qty').value = Math.max(1, parseInt(document.getElementById('qty').value) - 1)">-</button>
+                            <input type="number" id="qty" class="w-16 text-center border-none focus:ring-0 font-medium h-full" value="1" min="1">
+                            <button type="button" class="px-4 text-gray-500 hover:bg-gray-100 h-full transition" onclick="document.getElementById('qty').value = parseInt(document.getElementById('qty').value) + 1">+</button>
+                        </div>
+                        <button type="button" onclick="addToCart({id: 'book3', title: '设计模式：可复用面向对象软件的基础', author: 'Erich Gamma 等', price: 68.50, image: 'images/book3.jpg'}, parseInt(document.getElementById('qty').value)); window.location.href='cart.html';" class="flex-1 flex items-center justify-center h-12 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors shadow-sm cursor-pointer border-none outline-none">
+                            <i data-feather="shopping-bag" class="w-5 h-5 mr-2"></i>
+                            加入购物车
+                        </button>
+                    </div>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-white font-bold text-xl tracking-tight">书香云端</div>
+            <p class="text-sm">© 2026 书香云端 电子书店. 保留所有权利。软件工程作业。</p>
+        </div>
+    </footer>
+
+    <!-- Init Feather Icons -->
+    <script src="cart.js"></script>
+    <script>
+      feather.replace();
+    </script>
+</body>
+</html>
