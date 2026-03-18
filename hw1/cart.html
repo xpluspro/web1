@@ -109,68 +109,6 @@
 
     <!-- Init Feather Icons -->
     <script src="cart.js"></script>
-    <script>
-      feather.replace();
-
-      function renderCart() {
-          const cart = getCart();
-          const container = document.getElementById('cart-items-container');
-          if (!container) return;
-          
-          container.innerHTML = '';
-          
-          if (cart.length === 0) {
-              container.innerHTML = '<li class="py-12 text-center text-gray-500 text-lg">您的购物车还是空的，快去选购吧！</li>';
-              updateCartSummary(cart);
-              return;
-          }
-
-          cart.forEach(item => {
-              const li = document.createElement('li');
-              li.className = 'py-6 flex flex-col sm:flex-row items-center cart-row border-b border-gray-100 last:border-0';
-              li.innerHTML = `
-                  <img src="${item.image || 'images/book1.jpg'}" alt="${item.title}" class="h-24 w-20 flex-shrink-0 object-contain rounded-md bg-gray-50 p-2 border border-gray-100 sm:mr-6 mb-4 sm:mb-0">
-                  <div class="flex-1 text-center sm:text-left w-full sm:w-auto">
-                      <h3 class="font-bold text-gray-900 text-lg mb-1"><a href="details${item.id.replace('book', '')}.html" class="hover:text-primary-600">${item.title}</a></h3>
-                      <p class="text-sm text-gray-500 mb-2">${item.author || ''}</p>
-                      <div class="font-bold text-primary-600 item-price text-lg">¥${item.price.toFixed(2)}</div>
-                  </div>
-                  <div class="flex items-center justify-between sm:justify-start space-x-6 w-full sm:w-auto mt-4 sm:mt-0 px-4 sm:px-0">
-                      <div class="flex items-center border border-gray-300 rounded-md overflow-hidden h-9">
-                          <button type="button" class="px-3 text-gray-500 hover:bg-gray-100 h-full qty-btn" onclick="updateItemQty('${item.id}', -1)">-</button>
-                          <input type="number" class="w-12 text-center border-none shadow-none text-sm h-full item-qty focus:ring-0" value="${item.qty}" min="1" onchange="setItemQty('${item.id}', this.value)">
-                          <button type="button" class="px-3 text-gray-500 hover:bg-gray-100 h-full qty-btn" onclick="updateItemQty('${item.id}', 1)">+</button>
-                      </div>
-                      <button type="button" class="text-sm font-medium text-red-500 hover:text-red-700 remove-btn transition-colors" onclick="removeItem('${item.id}')">移除商品</button>
-                  </div>
-              `;
-              container.appendChild(li);
-          });
-          
-          updateCartSummary(cart);
-      }
-
-      function updateCartSummary(cart) {
-          let subtotal = 0;
-          cart.forEach(item => { subtotal += item.price * item.qty; });
-          
-          const discount = cart.length > 0 ? 10.00 : 0.00;
-          const total = Math.max(0, subtotal - discount);
-
-          const summaryContainer = document.querySelector('.cart-summary');
-          if (!summaryContainer) return;
-          
-          const summaryRows = summaryContainer.querySelectorAll('dd');
-          if(summaryRows.length >= 3) {
-              summaryRows[0].textContent = `¥${subtotal.toFixed(2)}`;
-              
-              summaryRows[2].textContent = cart.length > 0 ? `-¥${discount.toFixed(2)}` : `¥0.00`;
-              summaryRows[3].textContent = `¥${total.toFixed(2)}`;
-          }
-      }
-
-      window.addEventListener('cartUpdated', renderCart);
-      document.addEventListener('DOMContentLoaded', renderCart);
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>

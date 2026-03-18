@@ -68,7 +68,7 @@
                 </div>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors" onclick="window.print()">
+                    <button class="js-print-receipt inline-flex items-center justify-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
                         <i data-feather="printer" class="mr-2 w-5 h-5"></i>
                         打印收据
                     </button>
@@ -89,12 +89,8 @@
         </div>
     </footer>
 
-    <!-- Init Feather Icons -->
-    <script src="cart.js"></script>
-    <script>
-      feather.replace();
-      // Clear cart context on successful checkout
-      clearCart();
-    </script>
+        <!-- Init Feather Icons -->
+        <script src="cart.js"></script>
+        <script src="main.js"></script>
 </body>
 </html>
