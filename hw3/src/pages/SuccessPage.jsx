@@ -75,6 +75,12 @@ export default function SuccessPage({ latestOrder, onCompleteOrder }) {
             打印收据
           </button>
           <Link
+            to="/myorder"
+            className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+          >
+            查看我的订单
+          </Link>
+          <Link
             to="/"
             className="inline-flex items-center justify-center rounded-full bg-primary-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-700"
           >

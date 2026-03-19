@@ -36,6 +36,9 @@ export default function SiteHeader({ cartCount, searchTerm, onSearchChange }) {
           <NavLink to="/" end className={navClassName}>
             商店主页
           </NavLink>
+          <NavLink to="/myorder" className={navClassName}>
+            我的订单
+          </NavLink>
           <NavLink to="/cart" className={navClassName}>
             购物车({cartCount})
           </NavLink>

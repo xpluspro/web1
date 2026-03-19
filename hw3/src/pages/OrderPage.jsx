@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import OrderSummary from '../components/OrderSummary.jsx';
 import { getCartSummary } from '../lib/cartStorage.js';
@@ -11,8 +11,9 @@ const initialForm = {
   paymentMethod: '微信支付',
 };
 
-export default function OrderPage({ cartItems, onPlaceOrder }) {
+export default function OrderPage({ cartItems, onPlaceOrder, onSavePendingOrder }) {
   const [form, setForm] = useState(initialForm);
+  const formRef = useRef(null);
   const navigate = useNavigate();
   const summary = getCartSummary(cartItems);
 
@@ -50,6 +51,15 @@ export default function OrderPage({ cartItems, onPlaceOrder }) {
     event.preventDefault();
     const order = onPlaceOrder(form);
     navigate('/success', { state: { order } });
+  }
+
+  function handleSavePending() {
+    if (formRef.current && !formRef.current.reportValidity()) {
+      return;
+    }
+
+    const order = onSavePendingOrder(form);
+    navigate('/myorder', { state: { focusOrder: order.orderNumber } });
   }
 
   return (
@@ -92,7 +102,11 @@ export default function OrderPage({ cartItems, onPlaceOrder }) {
           </ul>
         </div>
 
-        <form onSubmit={handleSubmit} className="rounded-[1.75rem] border border-gray-200 bg-white p-6 shadow-sm">
+        <form
+          ref={formRef}
+          onSubmit={handleSubmit}
+          className="rounded-[1.75rem] border border-gray-200 bg-white p-6 shadow-sm"
+        >
           <div className="mb-6">
             <p className="mb-2 text-xs font-black uppercase tracking-[0.35em] text-gray-400">
               Customer
@@ -162,12 +176,21 @@ export default function OrderPage({ cartItems, onPlaceOrder }) {
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="mt-8 inline-flex items-center justify-center rounded-full bg-primary-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-700"
-          >
-            确认提交订单
-          </button>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <button
+              type="submit"
+              className="inline-flex items-center justify-center rounded-full bg-primary-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-700"
+            >
+              确认支付并提交订单
+            </button>
+            <button
+              type="button"
+              onClick={handleSavePending}
+              className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+            >
+              保存为待支付
+            </button>
+          </div>
         </form>
       </section>
 
