@@ -56,3 +56,22 @@ function removeItem(id) {
 function clearCart() {
     localStorage.removeItem('shopping_cart');
 }
+
+function getOrders() {
+    try {
+        const orders = localStorage.getItem('shopping_orders');
+        return orders ? JSON.parse(orders) : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveOrders(orders) {
+    localStorage.setItem('shopping_orders', JSON.stringify(orders));
+}
+
+function createOrder(order) {
+    const orders = getOrders();
+    orders.unshift(order);
+    saveOrders(orders);
+}

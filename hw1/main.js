@@ -298,10 +298,106 @@
   }
 
   function initOrderPage() {
-    if (!document.getElementById('checkout-items-container')) {
+    const checkoutContainer = document.getElementById('checkout-items-container');
+    if (!checkoutContainer) {
       return;
     }
+
     renderOrder();
+
+    const form = document.querySelector('form.js-checkout-form');
+    if (!form || form.dataset.bound) {
+      return;
+    }
+
+    form.addEventListener('submit', () => {
+      const cart = getCart();
+      if (!cart.length) {
+        return;
+      }
+
+      let total = 0;
+      cart.forEach((item) => {
+        total += item.price * item.qty;
+      });
+
+      const orderId = `SF${Date.now()}`;
+      createOrder({
+        id: orderId,
+        status: '已支付',
+        createdAt: new Date().toLocaleString('zh-CN'),
+        total: total,
+        items: cart,
+      });
+    });
+
+    form.dataset.bound = '1';
+  }
+
+  function renderOrdersPage() {
+    const pendingContainer = document.getElementById('pending-orders-container');
+    const paidContainer = document.getElementById('paid-orders-container');
+    if (!pendingContainer || !paidContainer) {
+      return;
+    }
+
+    const pendingItems = getCart();
+    const paidOrders = getOrders();
+
+    pendingContainer.innerHTML = '';
+    paidContainer.innerHTML = '';
+
+    if (!pendingItems.length) {
+      pendingContainer.innerHTML = '<li class="py-4 text-sm text-gray-500">暂无待支付订单</li>';
+    } else {
+      let pendingTotal = 0;
+      pendingItems.forEach((item) => {
+        pendingTotal += item.price * item.qty;
+      });
+
+      const pendingRow = document.createElement('li');
+      pendingRow.className = 'py-4';
+      pendingRow.innerHTML = `
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div>
+            <h3 class="text-sm font-bold text-gray-900">待支付订单（来自购物车）</h3>
+            <p class="text-sm text-gray-500">共 ${pendingItems.length} 种商品，合计 ¥${pendingTotal.toFixed(2)}</p>
+          </div>
+          <a href="order.html" class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-md bg-amber-100 text-amber-700 w-fit">去支付</a>
+        </div>
+      `;
+      pendingContainer.appendChild(pendingRow);
+    }
+
+    if (!paidOrders.length) {
+      paidContainer.innerHTML = '<li class="py-4 text-sm text-gray-500">暂无已支付订单</li>';
+      return;
+    }
+
+    paidOrders.forEach((order) => {
+      const row = document.createElement('li');
+      row.className = 'py-4';
+      row.innerHTML = `
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div>
+            <h3 class="text-sm font-bold text-gray-900">订单号：#${order.id}</h3>
+            <p class="text-sm text-gray-500">${order.createdAt} · ${order.items.length} 种商品</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700">${order.status}</span>
+            <span class="text-sm font-bold text-gray-900">¥${order.total.toFixed(2)}</span>
+          </div>
+        </div>
+      `;
+      paidContainer.appendChild(row);
+    });
+  }
+
+  function initOrdersPage() {
+    if (!document.getElementById('pending-orders-container')) {
+      return;
+    }
+    renderOrdersPage();
   }
 
   function initSuccessPage() {
@@ -321,6 +417,7 @@
     initDetailsPage();
     initCartPage();
     initOrderPage();
+    initOrdersPage();
     initSuccessPage();
   });
 })();
