@@ -7,12 +7,6 @@ npm install
 npm run dev
 ```
 
-## 直接打开方式
-
-- 直接双击 `hw2/index.html` 也可以打开页面。
-- 为了兼容浏览器直接访问 `file://` 文件的场景，项目额外生成了 `standalone/app.js` 和 `standalone/app.css` 作为免服务器入口。
-- 如果使用开发模式或重新构建，仍然可以继续使用 Vite 工作流。
-
 ## 构件拆分
 
 - `src/components/CalculatorPage.jsx`：顶层页面，组合显示区和键盘。

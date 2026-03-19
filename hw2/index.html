@@ -7,25 +7,9 @@
       content="width=device-width, initial-scale=1.0"
     />
     <title>作业2 - React 计算器重构</title>
-    <script>
-      if (window.location.protocol === "file:") {
-        const standaloneStyle = document.createElement("link");
-        standaloneStyle.rel = "stylesheet";
-        standaloneStyle.href = "./standalone/app.css";
-        document.head.appendChild(standaloneStyle);
-      }
-    </script>
   </head>
   <body>
-    <div id="root">正在加载计算器...</div>
-    <script>
-      if (window.location.protocol === "file:") {
-        const standaloneScript = document.createElement("script");
-        standaloneScript.defer = true;
-        standaloneScript.src = "./standalone/app.js";
-        document.body.appendChild(standaloneScript);
-      }
-    </script>
+    <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
