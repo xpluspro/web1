@@ -1,0 +1,189 @@
+:root {
+  color: #f8fafc;
+  font-family: "Avenir Next", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(34, 197, 94, 0.2), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.16), transparent 30%),
+    linear-gradient(135deg, #0f172a 0%, #111827 45%, #1e293b 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.page-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px 16px;
+}
+
+.calculator-card {
+  width: min(100%, 560px);
+  padding: 28px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 28px;
+  background: rgba(15, 23, 42, 0.82);
+  box-shadow:
+    0 30px 60px rgba(2, 6, 23, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px);
+}
+
+.calculator-copy {
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #86efac;
+  font-size: 0.78rem;
+}
+
+.calculator-copy h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1.05;
+}
+
+.description {
+  margin: 12px 0 0;
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+.display-panel {
+  padding: 20px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.9));
+  border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.display-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 24px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.status {
+  text-align: right;
+  color: #7dd3fc;
+}
+
+.status.error {
+  color: #fda4af;
+}
+
+.display-expression {
+  margin-top: 16px;
+  min-height: 72px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  text-align: right;
+  word-break: break-all;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.keypad {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.calc-button {
+  min-height: 66px;
+  border: 0;
+  border-radius: 20px;
+  color: #f8fafc;
+  cursor: pointer;
+  transition:
+    transform 140ms ease,
+    box-shadow 140ms ease,
+    filter 140ms ease;
+  box-shadow: inset 0 -10px 20px rgba(15, 23, 42, 0.12);
+}
+
+.calc-button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+.calc-button:active {
+  transform: translateY(1px);
+}
+
+.variant-number {
+  background: linear-gradient(180deg, #334155, #1e293b);
+}
+
+.variant-function {
+  background: linear-gradient(180deg, #1d4ed8, #1e40af);
+}
+
+.variant-operator {
+  background: linear-gradient(180deg, #f97316, #ea580c);
+}
+
+.variant-danger {
+  background: linear-gradient(180deg, #ef4444, #dc2626);
+}
+
+.variant-accent {
+  background: linear-gradient(180deg, #22c55e, #16a34a);
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+.span-3 {
+  grid-column: span 3;
+}
+
+@media (max-width: 640px) {
+  .calculator-card {
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .display-meta {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .keypad {
+    gap: 10px;
+  }
+
+  .calc-button {
+    min-height: 58px;
+    border-radius: 18px;
+  }
+}
