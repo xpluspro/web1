@@ -1,0 +1,22 @@
+{
+  "name": "hw1",
+  "version": "1.0.0",
+  "description": "Homework 3 React refactor for the ebook store",
+  "scripts": {
+    "dev": "npm run build:css && vite",
+    "build": "npm run build:css && vite build",
+    "preview": "vite preview",
+    "build:css": "tailwindcss -i ./src/input.css -o ./style.css",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./style.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.11",
+    "@tailwindcss/typography": "^0.5.19",
+    "@vitejs/plugin-react": "^6.0.1",
+    "tailwindcss": "^3.4.19",
+    "vite": "^8.0.1"
+  }
+}
