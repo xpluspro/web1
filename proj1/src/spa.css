@@ -1,0 +1,247 @@
+#root {
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(22, 119, 255, 0.12), transparent 28%),
+    linear-gradient(180deg, #f9fbff 0%, #f4f7fb 100%);
+  color: #1f2937;
+}
+
+a {
+  color: inherit;
+}
+
+.book-app-shell {
+  min-height: 100vh;
+}
+
+.book-app-sider {
+  border-inline-end: 1px solid #edf2f7;
+  box-shadow: 4px 0 18px rgba(15, 23, 42, 0.04);
+}
+
+.brand-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 20px 20px;
+}
+
+.brand-avatar {
+  background: linear-gradient(135deg, #1677ff, #69b1ff);
+}
+
+.brand-title.ant-typography {
+  margin: 0;
+}
+
+.book-app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+  min-height: 72px;
+  padding: 16px 24px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.book-app-content {
+  padding: 24px;
+}
+
+.page-kicker {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #1677ff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.page-intro {
+  max-width: 48rem;
+  margin-bottom: 0;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.header-user-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-greeting {
+  font-weight: 600;
+}
+
+.hero-card {
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+}
+
+.book-hero-carousel .slick-dots-bottom {
+  bottom: 8px;
+}
+
+.hero-slide {
+  display: grid;
+  grid-template-columns: minmax(180px, 240px) 1fr;
+  gap: 24px;
+  align-items: center;
+  min-height: 280px;
+  padding: 28px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #102a43 0%, #1d4ed8 100%);
+}
+
+.hero-slide-image {
+  width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px;
+}
+
+.hero-slide-copy {
+  padding-right: 8px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.book-card {
+  height: 100%;
+  border: 1px solid #edf2f7;
+}
+
+.book-card .ant-card-body {
+  height: calc(100% - 260px);
+}
+
+.book-card-cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 260px;
+  background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
+}
+
+.book-card-image {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  padding: 18px;
+}
+
+.book-card-title.ant-typography {
+  margin-bottom: 8px;
+}
+
+.book-card-summary {
+  min-height: 66px;
+  margin-bottom: 0;
+}
+
+.book-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.book-card-price {
+  font-size: 22px;
+  color: #1677ff;
+}
+
+.detail-image-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
+}
+
+.detail-image-panel .ant-image-img {
+  max-height: 360px;
+  object-fit: contain;
+}
+
+.detail-price {
+  color: #1677ff;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.related-book-card .ant-card-body {
+  padding-top: 16px;
+}
+
+.related-book-image {
+  height: 220px;
+  object-fit: contain;
+  padding: 16px;
+  background: #f8fbff;
+}
+
+.cart-cover {
+  width: 72px;
+  height: 96px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #f8fbff;
+  padding: 8px;
+}
+
+.cart-summary-card {
+  max-width: 420px;
+}
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.summary-row-total {
+  padding-top: 10px;
+  border-top: 1px solid #edf2f7;
+}
+
+.profile-preview-card {
+  background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
+}
+
+@media (max-width: 991px) {
+  .hero-slide {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .hero-slide-image {
+    max-width: 220px;
+    justify-self: center;
+  }
+
+  .book-app-content {
+    padding: 16px;
+  }
+
+  .book-app-header {
+    padding: 16px;
+    gap: 12px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

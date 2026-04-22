@@ -170,9 +170,13 @@ ENV/
 # OSX dir files
 .DS_Store
 
+.playwright-mcp
+
 # Sublime Text settings
 *.sublime-workspace
 *.sublime-project
 
 #pdf
 *.pdf
+
+tmp/
