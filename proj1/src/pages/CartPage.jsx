@@ -27,7 +27,7 @@ export default function CartPage({ cartItems, onQuantityChange, onRemoveItem }) 
       dataIndex: 'title',
       key: 'title',
       render: (_, record) => (
-        <Space direction="vertical" size={2}>
+        <Space orientation="vertical" size={2}>
           <Text strong>{record.title}</Text>
           <Text type="secondary">{record.author}</Text>
         </Space>
@@ -86,7 +86,7 @@ export default function CartPage({ cartItems, onQuantityChange, onRemoveItem }) 
   }
 
   return (
-    <Space direction="vertical" size={24} style={{ width: '100%' }}>
+    <Space orientation="vertical" size={24} style={{ width: '100%' }}>
       <Card>
         <div className="section-header">
           <div>
@@ -107,7 +107,7 @@ export default function CartPage({ cartItems, onQuantityChange, onRemoveItem }) 
       </Card>
 
       <Card className="cart-summary-card">
-        <Space direction="vertical" size={10} style={{ width: '100%' }}>
+        <Space orientation="vertical" size={10} style={{ width: '100%' }}>
           <Title level={4} style={{ marginBottom: 0 }}>
             Cart Summary
           </Title>

@@ -11,7 +11,6 @@ import {
   Empty,
   Image,
   InputNumber,
-  List,
   Row,
   Space,
   Tag,
@@ -52,7 +51,7 @@ export default function BookDetailPage({ books, onAddToCart, onQuickPurchase }) 
   }
 
   return (
-    <Space direction="vertical" size={24} style={{ width: '100%' }}>
+    <Space orientation="vertical" size={24} style={{ width: '100%' }}>
       <Button icon={<ArrowLeftOutlined />} onClick={() => window.history.back()}>
         返回上一页
       </Button>
@@ -66,7 +65,7 @@ export default function BookDetailPage({ books, onAddToCart, onQuickPurchase }) 
           </Col>
 
           <Col xs={24} lg={15}>
-            <Space direction="vertical" size={16} style={{ width: '100%' }}>
+            <Space orientation="vertical" size={16} style={{ width: '100%' }}>
               <Space wrap>
                 <Tag color="blue">{book.category}</Tag>
                 <Tag color={book.status === 'In Stock' ? 'green' : 'orange'}>{book.status}</Tag>
@@ -106,15 +105,15 @@ export default function BookDetailPage({ books, onAddToCart, onQuickPurchase }) 
 
               <div>
                 <Title level={5}>Highlights</Title>
-                <List
-                  size="small"
-                  dataSource={book.highlights}
-                  renderItem={(item) => <List.Item>{item}</List.Item>}
-                />
+                <ul className="detail-highlight-list">
+                  {book.highlights.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
               </div>
 
               <Space wrap size={16}>
-                <Space direction="vertical" size={6}>
+                <Space orientation="vertical" size={6}>
                   <Text type="secondary">Amount</Text>
                   <InputNumber
                     min={1}
@@ -144,11 +143,9 @@ export default function BookDetailPage({ books, onAddToCart, onQuickPurchase }) 
       </Card>
 
       <Card title="Related Books">
-        <List
-          grid={{ gutter: 16, xs: 1, md: 3 }}
-          dataSource={recommendations}
-          renderItem={(item) => (
-            <List.Item>
+        <Row gutter={[16, 16]}>
+          {recommendations.map((item) => (
+            <Col key={item.id} xs={24} md={8}>
               <Card
                 hoverable
                 className="related-book-card"
@@ -162,9 +159,9 @@ export default function BookDetailPage({ books, onAddToCart, onQuickPurchase }) 
                   </Button>
                 </Link>
               </Card>
-            </List.Item>
-          )}
-        />
+            </Col>
+          ))}
+        </Row>
       </Card>
     </Space>
   );

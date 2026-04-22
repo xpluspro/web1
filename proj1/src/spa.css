@@ -183,6 +183,20 @@ a {
   font-weight: 700;
 }
 
+.detail-highlight-list {
+  margin: 0;
+  padding-left: 20px;
+  color: #4b5563;
+}
+
+.detail-highlight-list li {
+  margin-bottom: 8px;
+}
+
+.detail-highlight-list li:last-child {
+  margin-bottom: 0;
+}
+
 .related-book-card .ant-card-body {
   padding-top: 16px;
 }

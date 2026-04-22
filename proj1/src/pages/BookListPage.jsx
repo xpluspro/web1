@@ -27,11 +27,11 @@ export default function BookListPage({ books, heroBooks, searchTerm, onSearchCha
   const visibleBooks = books.filter((book) => matchesSearch(book, searchTerm));
 
   return (
-    <Space direction="vertical" size={24} style={{ width: '100%' }}>
+    <Space orientation="vertical" size={24} style={{ width: '100%' }}>
       <Card className="hero-card">
         <Row gutter={[24, 24]} align="middle">
           <Col xs={24} xl={8}>
-            <Space direction="vertical" size={12}>
+            <Space orientation="vertical" size={12}>
               <Text className="page-kicker">Online Book Store</Text>
               <Title level={2} style={{ margin: 0 }}>
                 书店首页与书籍目录

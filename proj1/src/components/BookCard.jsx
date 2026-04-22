@@ -16,7 +16,7 @@ export default function BookCard({ book }) {
         </Link>
       }
     >
-      <Space direction="vertical" size={12} style={{ width: '100%' }}>
+      <Space orientation="vertical" size={12} style={{ width: '100%' }}>
         <Space wrap>
           <Tag color="blue">{book.category}</Tag>
           <Tag color={book.status === 'In Stock' ? 'green' : 'orange'}>{book.status}</Tag>

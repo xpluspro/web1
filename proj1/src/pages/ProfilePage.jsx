@@ -67,7 +67,7 @@ export default function ProfilePage({ profile, onSaveProfile }) {
     <Card>
       <Row gutter={[32, 32]}>
         <Col xs={24} lg={8}>
-          <Space direction="vertical" size={20} style={{ width: '100%' }}>
+          <Space orientation="vertical" size={20} style={{ width: '100%' }}>
             <div>
               <Text className="page-kicker">My Profile</Text>
               <Title level={2}>个人信息页</Title>
@@ -77,7 +77,7 @@ export default function ProfilePage({ profile, onSaveProfile }) {
             </div>
 
             <Card className="profile-preview-card">
-              <Space direction="vertical" align="center" style={{ width: '100%' }}>
+              <Space orientation="vertical" align="center" style={{ width: '100%' }}>
                 <Avatar size={120} src={avatarUrl} icon={<UserOutlined />} />
                 <Title level={4} style={{ marginBottom: 0 }}>
                   {[firstName, lastName].filter(Boolean).join(' ') || 'Book User'}
