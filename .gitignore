@@ -180,3 +180,7 @@ ENV/
 *.pdf
 
 tmp/
+
+.m2/
+.mysql-*/
+target/
