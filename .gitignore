@@ -184,3 +184,5 @@ tmp/
 .m2/
 .mysql-*/
 target/
+
+/.playwright-cli
