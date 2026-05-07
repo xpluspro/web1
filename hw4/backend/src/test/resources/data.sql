@@ -63,5 +63,5 @@ INSERT INTO books (
   '/images/book4.jpg',
   'A practical book about readable code, naming, functions, and long-term maintainability.',
   'Clean Code focuses on naming, functions, comments, boundaries, and testing habits that keep code understandable for future developers.\nThat makes it a natural fit for this assignment because we are not only building a UI, but also organizing the project into maintainable React components and route modules.',
-  'Readable and maintainable coding habits\nPairs well with the component-based design principle\nA strong visual anchor for the bookstore demo'
+  'Readable and maintainable coding habits\nPairs well with the component-based design principle\nA strong visual anchor for the bookstore project'
 );

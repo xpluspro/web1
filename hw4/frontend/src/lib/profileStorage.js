@@ -4,7 +4,7 @@ const defaultProfile = {
   firstName: 'Tom',
   lastName: 'Cat',
   twitter: '@TomCat',
-  notes: 'This is my profile for the Homework 4 integrated bookstore demo.',
+  notes: 'This is my profile for the Homework 4 integrated bookstore project.',
   avatarUrl:
     'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=300&q=80',
 };

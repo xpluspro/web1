@@ -1,13 +1,17 @@
 # Homework 4 Backend
 
-## Default mode: MySQL
+Spring Boot backend for the online bookstore homework.
 
-1. Start a MySQL server.
-2. Run the initialization script:
+## Run With MySQL
+
+1. Start MySQL.
+2. Initialize the database:
 
 ```bash
 mysql -u root < database/init.sql
 ```
+
+If your local MySQL user is not `root`, replace `root` with your username.
 
 3. Start the backend:
 
@@ -15,17 +19,19 @@ mysql -u root < database/init.sql
 mvn spring-boot:run
 ```
 
+The service runs on `http://localhost:8080` by default.
+
+## APIs
+
+- `POST /api/v1/users/register`
+- `GET /api/v1/books`
+- `GET /api/v1/book/{id}`
+
+## Configuration
+
 Environment variables:
 
 - `MYSQL_URL`
 - `MYSQL_USERNAME`
 - `MYSQL_PASSWORD`
 - `CORS_ALLOWED_ORIGINS`
-
-## Demo mode: embedded H2
-
-This profile is only for local API verification when a MySQL daemon is unavailable in the current environment.
-
-```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=demo
-```
