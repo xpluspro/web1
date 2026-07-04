@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -74,12 +76,13 @@ class Hw4BackendApplicationTests {
                                   "username": "tom",
                                   "password": "123456"
                                 }
-                                """))
+                """))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(1)))
-                .andExpect(jsonPath("$.username", is("tom")))
-                .andExpect(jsonPath("$.role", is("CUSTOMER")))
-                .andExpect(jsonPath("$.fullName", is("Tom Cat")));
+                .andExpect(jsonPath("$.token").isNotEmpty())
+                .andExpect(jsonPath("$.user.id", is(1)))
+                .andExpect(jsonPath("$.user.username", is("tom")))
+                .andExpect(jsonPath("$.user.role", is("CUSTOMER")))
+                .andExpect(jsonPath("$.user.fullName", is("Tom Cat")));
     }
 
     @Test
@@ -98,7 +101,10 @@ class Hw4BackendApplicationTests {
 
     @Test
     void shouldAddUpdateAndRemoveCartItem() throws Exception {
+        String userToken = loginToken("tom");
+
         mockMvc.perform(post("/api/v1/users/1/cart/items")
+                        .header("Authorization", bearer(userToken))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -114,6 +120,7 @@ class Hw4BackendApplicationTests {
                 .andExpect(jsonPath("$.totalAmount", is(178.0)));
 
         mockMvc.perform(put("/api/v1/users/1/cart/items/1")
+                        .header("Authorization", bearer(userToken))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -124,7 +131,8 @@ class Hw4BackendApplicationTests {
                 .andExpect(jsonPath("$.items[0].quantity", is(3)))
                 .andExpect(jsonPath("$.totalAmount", is(267.0)));
 
-        mockMvc.perform(delete("/api/v1/users/1/cart/items/1"))
+        mockMvc.perform(delete("/api/v1/users/1/cart/items/1")
+                        .header("Authorization", bearer(userToken)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.items", hasSize(0)))
                 .andExpect(jsonPath("$.totalAmount", is(0)));
@@ -132,7 +140,10 @@ class Hw4BackendApplicationTests {
 
     @Test
     void shouldCheckoutCartIntoOrderAndClearCart() throws Exception {
+        String userToken = loginToken("tom");
+
         mockMvc.perform(post("/api/v1/users/1/cart/items")
+                        .header("Authorization", bearer(userToken))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -142,7 +153,8 @@ class Hw4BackendApplicationTests {
                                 """))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(post("/api/v1/users/1/orders"))
+        mockMvc.perform(post("/api/v1/users/1/orders")
+                        .header("Authorization", bearer(userToken)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.status", is("PAID")))
                 .andExpect(jsonPath("$.username", is("tom")))
@@ -150,11 +162,13 @@ class Hw4BackendApplicationTests {
                 .andExpect(jsonPath("$.items[0].title", is("The Mythical Man-Month")))
                 .andExpect(jsonPath("$.totalAmount", is(45.0)));
 
-        mockMvc.perform(get("/api/v1/users/1/cart"))
+        mockMvc.perform(get("/api/v1/users/1/cart")
+                        .header("Authorization", bearer(userToken)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.items", hasSize(0)));
 
-        mockMvc.perform(get("/api/v1/users/1/orders"))
+        mockMvc.perform(get("/api/v1/users/1/orders")
+                        .header("Authorization", bearer(userToken)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].items[0].title", is("The Mythical Man-Month")));
 
@@ -165,12 +179,16 @@ class Hw4BackendApplicationTests {
 
     @Test
     void shouldManageUsersAndBooksForAdminViews() throws Exception {
-        mockMvc.perform(get("/api/v1/users"))
+        String adminToken = loginToken("admin");
+
+        mockMvc.perform(get("/api/v1/users")
+                        .header("Authorization", bearer(adminToken)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
                 .andExpect(jsonPath("$[1].role", is("ADMIN")));
 
         mockMvc.perform(put("/api/v1/users/1/status")
+                        .header("Authorization", bearer(adminToken))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -181,6 +199,7 @@ class Hw4BackendApplicationTests {
                 .andExpect(jsonPath("$.disabled", is(true)));
 
         mockMvc.perform(post("/api/v1/admin/books")
+                        .header("Authorization", bearer(adminToken))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -207,7 +226,11 @@ class Hw4BackendApplicationTests {
 
     @Test
     void shouldFilterOrdersAndReturnStats() throws Exception {
+        String userToken = loginToken("tom");
+        String adminToken = loginToken("admin");
+
         mockMvc.perform(post("/api/v1/users/1/cart/items")
+                        .header("Authorization", bearer(userToken))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -217,32 +240,72 @@ class Hw4BackendApplicationTests {
                                 """))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(post("/api/v1/users/1/orders"))
+        mockMvc.perform(post("/api/v1/users/1/orders")
+                        .header("Authorization", bearer(userToken)))
                 .andExpect(status().isCreated());
 
-        mockMvc.perform(get("/api/v1/users/1/orders?bookName=Refactoring"))
+        mockMvc.perform(get("/api/v1/users/1/orders?bookName=Refactoring")
+                        .header("Authorization", bearer(userToken)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].items[0].title", is("Refactoring")));
 
-        mockMvc.perform(get("/api/v1/admin/orders?bookName=Refactoring"))
+        mockMvc.perform(get("/api/v1/admin/orders?bookName=Refactoring")
+                        .header("Authorization", bearer(adminToken)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].username", is("tom")));
 
-        mockMvc.perform(get("/api/v1/admin/stats/books"))
+        mockMvc.perform(get("/api/v1/admin/stats/books")
+                        .header("Authorization", bearer(adminToken)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].title", is("Refactoring")))
                 .andExpect(jsonPath("$[0].totalQuantity", is(2)));
 
-        mockMvc.perform(get("/api/v1/admin/stats/users"))
+        mockMvc.perform(get("/api/v1/admin/stats/users")
+                        .header("Authorization", bearer(adminToken)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].username", is("tom")))
                 .andExpect(jsonPath("$[0].totalQuantity", is(2)));
 
-        mockMvc.perform(get("/api/v1/users/1/orders/stats"))
+        mockMvc.perform(get("/api/v1/users/1/orders/stats")
+                        .header("Authorization", bearer(userToken)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalQuantity", is(2)))
                 .andExpect(jsonPath("$.books[0].title", is("Refactoring")));
+    }
+
+    @Test
+    void shouldRequireJwtAndRejectCrossUserAccess() throws Exception {
+        String userToken = loginToken("tom");
+
+        mockMvc.perform(get("/api/v1/users/1/cart"))
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.message", is("Authentication is required")));
+
+        mockMvc.perform(get("/api/v1/users/2/cart")
+                        .header("Authorization", bearer(userToken)))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.message", is("You can only access your own data")));
+    }
+
+    private String loginToken(String username) throws Exception {
+        MvcResult result = mockMvc.perform(post("/api/v1/users/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "username": "%s",
+                                  "password": "123456"
+                                }
+                                """.formatted(username)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.token").isNotEmpty())
+                .andReturn();
+
+        return JsonPath.read(result.getResponse().getContentAsString(), "$.token");
+    }
+
+    private String bearer(String token) {
+        return "Bearer " + token;
     }
 }

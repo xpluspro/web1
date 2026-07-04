@@ -26,9 +26,9 @@
 
 默认请求地址为 `http://localhost:8080`，可通过环境变量 `VITE_API_BASE_URL` 覆盖。
 
-当前前端使用的接口包括：
+登录接口返回 `{ token, user }`，前端会把 JWT 保存到 `localStorage` 并在受保护请求中自动发送 `Authorization: Bearer <token>`。当前前端使用的接口包括：
 
-- `POST /api/v1/users/login`：数据库用户登录
+- `POST /api/v1/users/login`：数据库用户登录并获取 JWT
 - `GET /api/v1/books`：获取全部书籍列表
 - `GET /api/v1/book/{id}`：获取单本书籍详情
 - `POST /api/v1/users/register`：注册新用户

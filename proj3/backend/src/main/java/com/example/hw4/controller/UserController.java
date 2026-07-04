@@ -1,10 +1,12 @@
 package com.example.hw4.controller;
 
+import com.example.hw4.dto.LoginResponse;
 import com.example.hw4.dto.LoginRequest;
 import com.example.hw4.dto.RegisterUserRequest;
 import com.example.hw4.dto.RegisterUserResponse;
 import com.example.hw4.dto.UserStatusRequest;
 import com.example.hw4.dto.UserResponse;
+import com.example.hw4.security.JwtService;
 import com.example.hw4.service.UserService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -23,14 +25,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+    private final JwtService jwtService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JwtService jwtService) {
         this.userService = userService;
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/login")
-    public UserResponse login(@Valid @RequestBody LoginRequest request) {
-        return userService.login(request);
+    public LoginResponse login(@Valid @RequestBody LoginRequest request) {
+        UserResponse user = userService.login(request);
+        return new LoginResponse(jwtService.generateToken(user), user);
     }
 
     @PostMapping("/register")

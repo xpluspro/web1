@@ -2,6 +2,7 @@ package com.example.hw4.controller;
 
 import com.example.hw4.dto.CustomerStatsResponse;
 import com.example.hw4.dto.OrderResponse;
+import com.example.hw4.security.AccessControlService;
 import com.example.hw4.service.OrderService;
 import java.time.LocalDate;
 import java.util.List;
@@ -20,9 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     private final OrderService orderService;
+    private final AccessControlService accessControlService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, AccessControlService accessControlService) {
         this.orderService = orderService;
+        this.accessControlService = accessControlService;
     }
 
     @GetMapping
@@ -32,12 +35,14 @@ public class OrderController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @RequestParam(required = false) String bookName
     ) {
+        accessControlService.requireSelfOrAdmin(userId);
         return orderService.getOrders(userId, startDate, endDate, bookName);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public OrderResponse checkout(@PathVariable Long userId) {
+        accessControlService.requireSelfOrAdmin(userId);
         return orderService.checkout(userId);
     }
 
@@ -47,6 +52,7 @@ public class OrderController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
     ) {
+        accessControlService.requireSelfOrAdmin(userId);
         return orderService.getCustomerStats(userId, startDate, endDate);
     }
 

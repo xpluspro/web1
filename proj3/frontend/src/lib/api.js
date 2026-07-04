@@ -1,12 +1,18 @@
+import { clearAuth, readToken } from './sessionStorage.js';
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 
 async function request(path, options = {}) {
+  const token = readToken();
+  const headers = {
+    'Content-Type': 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(options.headers || {}),
+  };
+
   const response = await fetch(`${API_BASE_URL}${path}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...(options.headers || {}),
-    },
     ...options,
+    headers,
   });
 
   if (!response.ok) {
@@ -17,6 +23,10 @@ async function request(path, options = {}) {
       message = errorBody.message || message;
     } catch {
       // Ignore JSON parsing errors and keep the default message.
+    }
+
+    if (response.status === 401) {
+      clearAuth();
     }
 
     throw new Error(message);

@@ -17,7 +17,7 @@ import {
   readRegistrationDraft,
   writeRegistrationDraft,
 } from '../lib/registrationDraftStorage.js';
-import { readUser, writeUser } from '../lib/sessionStorage.js';
+import { AUTH_CLEARED_EVENT, readAuth, writeAuth } from '../lib/sessionStorage.js';
 
 // Keeps cross-page bookstore state and side-effectful API workflows out of App.jsx,
 // leaving App.jsx focused on route composition and page wiring.
@@ -33,7 +33,8 @@ export function useBookstoreState() {
   const [ordersLoading, setOrdersLoading] = useState(false);
   const [checkingOut, setCheckingOut] = useState(false);
   const [registrationDraft, setRegistrationDraft] = useState(() => readRegistrationDraft());
-  const [user, setUser] = useState(() => readUser());
+  const [auth, setAuth] = useState(() => readAuth());
+  const user = auth?.user || null;
 
   const loadBooks = useCallback(async () => {
     setBooksLoading(true);
@@ -74,8 +75,21 @@ export function useBookstoreState() {
   }, [registrationDraft]);
 
   useEffect(() => {
-    writeUser(user);
-  }, [user]);
+    writeAuth(auth);
+  }, [auth]);
+
+  useEffect(() => {
+    function handleAuthCleared() {
+      setAuth(null);
+      setCartItems([]);
+      setOrders([]);
+      message.warning('登录已过期，请重新登录');
+      navigate('/login');
+    }
+
+    window.addEventListener(AUTH_CLEARED_EVENT, handleAuthCleared);
+    return () => window.removeEventListener(AUTH_CLEARED_EVENT, handleAuthCleared);
+  }, [message, navigate]);
 
   useEffect(() => {
     if (!user) {
@@ -116,14 +130,14 @@ export function useBookstoreState() {
   }, [message, user]);
 
   async function handleLogin(credentials) {
-    const nextUser = await loginUser(credentials);
-    setUser(nextUser);
-    message.success(`登录成功：${nextUser.fullName}`);
+    const nextAuth = await loginUser(credentials);
+    setAuth(nextAuth);
+    message.success(`登录成功：${nextAuth.user.fullName}`);
     navigate('/books');
   }
 
   function handleLogout() {
-    setUser(null);
+    setAuth(null);
     message.success('已退出登录');
     navigate('/login');
   }

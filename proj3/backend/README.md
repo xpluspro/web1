@@ -40,7 +40,7 @@ The demo accounts are:
 
 ## Main APIs
 
-- `POST /api/v1/users/login`: login with a database user.
+- `POST /api/v1/users/login`: login with a database user and receive `{ token, user }`.
 - `POST /api/v1/users/register`: register a new user.
 - `GET /api/v1/users`: list users for administrator management.
 - `PUT /api/v1/users/{userId}/status`: disable or enable a user.
@@ -59,6 +59,8 @@ The demo accounts are:
 - `GET /api/v1/admin/stats/books`: book sales leaderboard.
 - `GET /api/v1/admin/stats/users`: user consumption leaderboard.
 - `GET /api/v1/users/{userId}/orders/stats`: customer purchase statistics.
+
+Protected APIs require `Authorization: Bearer <token>`. Administrator APIs require an `ADMIN` user token, and customer-scoped APIs only allow the matching user or an administrator.
 
 ## Database Tables
 
