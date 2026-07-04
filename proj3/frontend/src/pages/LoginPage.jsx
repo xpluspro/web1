@@ -72,7 +72,7 @@ export default function LoginPage({ user, onLogin }) {
               <Alert
                 type="error"
                 showIcon
-                message={loginError}
+                title={loginError}
                 style={{ marginBottom: 16 }}
               />
             ) : null}

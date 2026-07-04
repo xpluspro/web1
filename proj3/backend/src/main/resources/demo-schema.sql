@@ -16,7 +16,7 @@ CREATE TABLE books (
   price DECIMAL(10, 2) NOT NULL,
   stock INT NOT NULL,
   status VARCHAR(50) NOT NULL,
-  cover VARCHAR(255) NOT NULL,
+  cover LONGTEXT NOT NULL,
   summary VARCHAR(1000) NOT NULL,
   description TEXT NOT NULL,
   highlights TEXT NOT NULL

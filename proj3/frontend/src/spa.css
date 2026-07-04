@@ -235,6 +235,35 @@ a {
   background: #f8fbff;
 }
 
+.cover-upload-dragger .ant-upload {
+  padding: 16px;
+}
+
+.cover-upload-preview {
+  display: block;
+  width: 132px;
+  height: 176px;
+  margin: 0 auto;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #f8fbff;
+}
+
+.cover-upload-empty {
+  display: flex;
+  min-height: 132px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  color: #64748b;
+}
+
+.cover-upload-empty .anticon {
+  font-size: 28px;
+  color: #1677ff;
+}
+
 .admin-book-form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 
@@ -46,7 +47,8 @@ public class Book {
     @Column(nullable = false, length = 50)
     private String status;
 
-    @Column(nullable = false, length = 255)
+    @Lob
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String cover;
 
     @Column(nullable = false, length = 1000)

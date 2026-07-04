@@ -47,7 +47,7 @@ public record BookUpsertRequest(
         String status,
 
         @NotBlank(message = "Cover is required")
-        @Size(max = 255, message = "Cover URL is too long")
+        @Size(max = 2000000, message = "Cover image is too large")
         String cover,
 
         @NotBlank(message = "Summary is required")

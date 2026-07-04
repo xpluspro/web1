@@ -1,6 +1,7 @@
 import {
   DeleteOutlined,
   EditOutlined,
+  PictureOutlined,
   PlusOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
@@ -18,6 +19,7 @@ import {
   Table,
   Tag,
   Typography,
+  Upload,
 } from 'antd';
 import { useMemo, useState } from 'react';
 import { Navigate } from 'react-router-dom';
@@ -26,6 +28,7 @@ import { formatPrice } from '../lib/format.js';
 
 const { Text, Title } = Typography;
 const { TextArea } = Input;
+const MAX_COVER_FILE_SIZE = 1.5 * 1024 * 1024;
 
 const emptyBook = {
   slug: '',
@@ -38,11 +41,58 @@ const emptyBook = {
   price: 0,
   stock: 0,
   status: 'In Stock',
-  cover: '/images/book1.jpg',
+  cover: '',
   summary: '',
   description: '',
   highlights: '',
 };
+
+function fileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function CoverUpload({ value, onChange, messageApi }) {
+  async function handleBeforeUpload(file) {
+    if (!file.type.startsWith('image/')) {
+      messageApi.error('请上传图片文件');
+      return Upload.LIST_IGNORE;
+    }
+
+    if (file.size > MAX_COVER_FILE_SIZE) {
+      messageApi.error('封面图片不能超过 1.5MB');
+      return Upload.LIST_IGNORE;
+    }
+
+    const dataUrl = await fileToDataUrl(file);
+    onChange?.(dataUrl);
+    messageApi.success('封面已上传');
+    return Upload.LIST_IGNORE;
+  }
+
+  return (
+    <Upload.Dragger
+      accept="image/*"
+      beforeUpload={handleBeforeUpload}
+      maxCount={1}
+      showUploadList={false}
+      className="cover-upload-dragger"
+    >
+      {value ? (
+        <img src={value} alt="图书封面预览" className="cover-upload-preview" />
+      ) : (
+        <div className="cover-upload-empty">
+          <PictureOutlined />
+          <Text>点击或拖拽上传图书封面</Text>
+        </div>
+      )}
+    </Upload.Dragger>
+  );
+}
 
 function toFormValues(book) {
   if (!book) {
@@ -278,8 +328,8 @@ export default function AdminBookPage({ books, loading, user, onBooksChanged }) 
             </Form.Item>
           </div>
 
-          <Form.Item label="Cover" name="cover" rules={[{ required: true, message: '请输入封面地址' }]}>
-            <Input placeholder="/images/book1.jpg" />
+          <Form.Item label="Cover" name="cover" rules={[{ required: true, message: '请上传封面图片' }]}>
+            <CoverUpload messageApi={message} />
           </Form.Item>
           <Form.Item label="Summary" name="summary" rules={[{ required: true, message: '请输入简介' }]}>
             <TextArea rows={3} />

@@ -5,6 +5,7 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import {
+  App as AntdApp,
   Avatar,
   Button,
   Card,
@@ -21,6 +22,28 @@ import { useEffect, useState } from 'react';
 const { Text, Title } = Typography;
 const { TextArea } = Input;
 
+function getRegistrationFieldError(error) {
+  const message = error?.message || '';
+
+  if (message.includes('Username already exists')) {
+    return { name: 'username', errors: ['用户名已存在，请换一个用户名'] };
+  }
+
+  if (message.includes('Email already exists')) {
+    return { name: 'email', errors: ['邮箱已被注册，请换一个邮箱'] };
+  }
+
+  if (message.includes('two passwords') || message.includes('passwords do not match')) {
+    return { name: 'confirmPassword', errors: ['两次输入的密码不一致'] };
+  }
+
+  if (message.includes('Email format')) {
+    return { name: 'email', errors: ['邮箱格式不正确'] };
+  }
+
+  return null;
+}
+
 function fileToDataUrl(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -33,13 +56,13 @@ function fileToDataUrl(file) {
 // This page is intentionally a registration screen, not profile editing.
 // Existing users use Login/Switch User; new users are created through /users/register.
 export default function ProfilePage({ draft, onRegister }) {
+  const { message } = AntdApp.useApp();
   const [form] = Form.useForm();
   const [avatarUrl, setAvatarUrl] = useState(draft.avatarUrl);
   const [submitting, setSubmitting] = useState(false);
   const firstName = Form.useWatch('firstName', form);
   const lastName = Form.useWatch('lastName', form);
   const twitter = Form.useWatch('twitter', form);
-  const password = Form.useWatch('password', form);
 
   useEffect(() => {
     form.setFieldsValue(draft);
@@ -63,6 +86,16 @@ export default function ProfilePage({ draft, onRegister }) {
 
     try {
       await onRegister({ ...values, avatarUrl });
+    } catch (error) {
+      const fieldError = getRegistrationFieldError(error);
+
+      if (fieldError) {
+        form.setFields([fieldError]);
+        message.error(fieldError.errors[0]);
+        return;
+      }
+
+      message.error(`注册失败：${error.message}`);
     } finally {
       setSubmitting(false);
     }
@@ -110,7 +143,11 @@ export default function ProfilePage({ draft, onRegister }) {
                 <Form.Item
                   label="Username"
                   name="username"
-                  rules={[{ required: true, message: '请输入用户名' }]}
+                  validateTrigger={['onBlur', 'onSubmit']}
+                  rules={[
+                    { required: true, message: '请输入用户名' },
+                    { whitespace: true, message: '用户名不能只包含空格' },
+                  ]}
                 >
                   <Input placeholder="jerry" autoComplete="username" />
                 </Form.Item>
@@ -120,6 +157,7 @@ export default function ProfilePage({ draft, onRegister }) {
                 <Form.Item
                   label="Email"
                   name="email"
+                  validateTrigger={['onBlur', 'onSubmit']}
                   rules={[
                     { required: true, message: '请输入邮箱' },
                     { type: 'email', message: '邮箱格式不正确' },
@@ -144,14 +182,18 @@ export default function ProfilePage({ draft, onRegister }) {
                 <Form.Item
                   label="Repeat Password"
                   name="confirmPassword"
+                  dependencies={['password']}
                   rules={[
                     { required: true, message: '请再次输入密码' },
-                    {
-                      validator: (_, value) =>
-                        !value || value === password
-                          ? Promise.resolve()
-                          : Promise.reject(new Error('两次输入的密码不一致')),
-                    },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || value === getFieldValue('password')) {
+                          return Promise.resolve();
+                        }
+
+                        return Promise.reject(new Error('两次输入的密码不一致'));
+                      },
+                    }),
                   ]}
                 >
                   <Input.Password placeholder="123456" autoComplete="new-password" />
